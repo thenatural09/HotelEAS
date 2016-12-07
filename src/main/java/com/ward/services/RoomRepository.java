@@ -1,7 +1,11 @@
 package com.ward.services;
 
+import com.ward.entities.Room;
+import org.springframework.data.repository.CrudRepository;
+
+
 /**
  * Created by Troy on 12/6/16.
  */
-public interface RoomRepository {
+public interface RoomRepository extends CrudRepository<Room,Integer> {
 }
