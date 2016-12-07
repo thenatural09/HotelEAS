@@ -24,14 +24,26 @@ public class Room {
     @Column
     String type;
 
+    @ManyToOne
+    User user;
+
     public Room() {
     }
 
-    public Room(int number, double rate, int numberOfBeds, String type) {
+    public Room(int number, double rate, int numberOfBeds, String type, User user) {
         this.number = number;
         this.rate = rate;
         this.numberOfBeds = numberOfBeds;
         this.type = type;
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getId() {

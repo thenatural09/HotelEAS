@@ -20,8 +20,8 @@ public class Group {
     @Column
     int numberOfRooms;
 
-    @ManyToMany
-    ArrayList<Room> rooms;
+    @ManyToOne
+    Room room;
 
     @Column
     double discount;
@@ -38,16 +38,16 @@ public class Group {
     @ManyToOne
     User user;
 
-    @ManyToMany
+    @ManyToOne
     Guest guest;
 
     public Group() {
     }
 
-    public Group(String name, int numberOfRooms, ArrayList<Room> rooms, double discount, String event, LocalDate arrival, LocalDate departure, User user, Guest guest) {
+    public Group(String name, int numberOfRooms, Room room, double discount, String event, LocalDate arrival, LocalDate departure, User user, Guest guest) {
         this.name = name;
         this.numberOfRooms = numberOfRooms;
-        this.rooms = rooms;
+        this.room = room;
         this.discount = discount;
         this.event = event;
         this.arrival = arrival;
@@ -88,12 +88,12 @@ public class Group {
         this.numberOfRooms = numberOfRooms;
     }
 
-    public ArrayList<Room> getRooms() {
-        return rooms;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setRooms(ArrayList<Room> rooms) {
-        this.rooms = rooms;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     public double getDiscount() {

@@ -28,18 +28,30 @@ public class CreditCard {
     @Column
     String billingAddress;
 
-    @ManyToMany
+    @ManyToOne
     Guest guest;
+
+    @ManyToOne
+    User user;
 
     public CreditCard() {
     }
 
-    public CreditCard(String type, int number, LocalDate expirationDate, String billingAddress, Guest guest) {
+    public CreditCard(String type, int number, LocalDate expirationDate, String billingAddress, Guest guest, User user) {
         this.type = type;
         this.number = number;
         this.expirationDate = expirationDate;
         this.billingAddress = billingAddress;
         this.guest = guest;
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getId() {

@@ -59,13 +59,13 @@ public class Guest {
     @Column
     LocalTime checkOutTime;
 
-    @ManyToMany
+    @ManyToOne
     CreditCard creditCard;
 
-    @ManyToMany
+    @ManyToOne
     Group group;
 
-    @ManyToMany
+    @ManyToOne
     ThirdParty thirdParty;
 
     public Guest() {
