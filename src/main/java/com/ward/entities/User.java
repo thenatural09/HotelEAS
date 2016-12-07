@@ -1,5 +1,7 @@
 package com.ward.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -16,6 +18,7 @@ public class User {
     String username;
 
     @Column(nullable = false)
+    @JsonIgnore
     String password;
 
     public User() {
