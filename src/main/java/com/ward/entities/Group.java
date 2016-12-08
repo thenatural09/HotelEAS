@@ -38,13 +38,11 @@ public class Group {
     @ManyToOne
     User user;
 
-    @ManyToOne
-    Guest guest;
 
     public Group() {
     }
 
-    public Group(String name, int numberOfRooms, Room room, double discount, String event, LocalDate arrival, LocalDate departure, User user, Guest guest) {
+    public Group(String name, int numberOfRooms, Room room, double discount, String event, LocalDate arrival, LocalDate departure, User user) {
         this.name = name;
         this.numberOfRooms = numberOfRooms;
         this.room = room;
@@ -53,16 +51,8 @@ public class Group {
         this.arrival = arrival;
         this.departure = departure;
         this.user = user;
-        this.guest = guest;
     }
 
-    public Guest getGuest() {
-        return guest;
-    }
-
-    public void setGuest(Guest guest) {
-        this.guest = guest;
-    }
 
     public int getId() {
         return id;

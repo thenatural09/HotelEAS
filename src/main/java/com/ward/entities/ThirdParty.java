@@ -16,7 +16,7 @@ public class ThirdParty {
     String name;
 
     @Column
-    boolean prePaid;
+    boolean hasPrePay;
 
     @Column
     double rate;
@@ -24,9 +24,9 @@ public class ThirdParty {
     public ThirdParty() {
     }
 
-    public ThirdParty(String name, boolean prePaid, double rate) {
+    public ThirdParty(String name, boolean hasPrePay, double rate) {
         this.name = name;
-        this.prePaid = prePaid;
+        this.hasPrePay = hasPrePay;
         this.rate = rate;
     }
 
@@ -46,12 +46,12 @@ public class ThirdParty {
         this.name = name;
     }
 
-    public boolean isPrePaid() {
-        return prePaid;
+    public boolean isHasPrePay() {
+        return hasPrePay;
     }
 
-    public void setPrePaid(boolean prePaid) {
-        this.prePaid = prePaid;
+    public void setHasPrePay(boolean hasPrePay) {
+        this.hasPrePay = hasPrePay;
     }
 
     public double getRate() {

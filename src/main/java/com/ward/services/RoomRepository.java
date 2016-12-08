@@ -8,4 +8,5 @@ import org.springframework.data.repository.CrudRepository;
  * Created by Troy on 12/6/16.
  */
 public interface RoomRepository extends CrudRepository<Room,Integer> {
+    Room findFirstByNumber(int number);
 }
