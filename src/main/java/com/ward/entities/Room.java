@@ -24,43 +24,20 @@ public class Room {
     @Column
     String type;
 
-    @Column
-    boolean isClean;
-
-    @Column
-    boolean isOccupied;
-
     @ManyToOne
     User user;
 
     public Room() {
     }
 
-    public Room(int number, double rate, int numberOfBeds, String type, boolean isClean, boolean isOccupied, User user) {
+    public Room(int number, double rate, int numberOfBeds, String type,User user) {
         this.number = number;
         this.rate = rate;
         this.numberOfBeds = numberOfBeds;
         this.type = type;
-        this.isClean = isClean;
-        this.isOccupied = isOccupied;
         this.user = user;
     }
 
-    public boolean isOccupied() {
-        return isOccupied;
-    }
-
-    public void setOccupied(boolean occupied) {
-        isOccupied = occupied;
-    }
-
-    public boolean isClean() {
-        return isClean;
-    }
-
-    public void setClean(boolean clean) {
-        isClean = clean;
-    }
 
     public User getUser() {
         return user;

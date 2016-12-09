@@ -41,9 +41,6 @@ public class HotelEasController {
     public String home(Model model, HttpSession session) throws Exception {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
-        if (user == null) {
-            throw new Exception("Forbidden");
-        }
         Iterable<Room> roomList = rooms.findAll();
         Iterable<Guest> guestList = guests.findAll();
         model.addAttribute("rooms",roomList);
@@ -60,6 +57,12 @@ public class HotelEasController {
         }
         users.save(user);
         session.setAttribute("username",username);
+        return "redirect:/";
+    }
+
+    @RequestMapping(path = "/logout", method = RequestMethod.POST)
+    public String logout(HttpSession session) {
+        session.invalidate();
         return "redirect:/";
     }
 
@@ -80,13 +83,13 @@ public class HotelEasController {
     }
 
     @RequestMapping(path = "/create-room", method = RequestMethod.POST)
-    public String createRoom(HttpSession session,int number,double rate,int numberOfBeds,String type,boolean isCleaned,boolean isOccupied) throws Exception {
+    public String createRoom(HttpSession session,int number,double rate,int numberOfBeds,String type) throws Exception {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
         if (user == null) {
             throw new Exception("Forbidden");
         }
-        Room room = new Room(number,rate,numberOfBeds,type,isCleaned,isOccupied,user);
+        Room room = new Room(number,rate,numberOfBeds,type,user);
         rooms.save(room);
         return "redirect:/";
     }
@@ -139,4 +142,8 @@ public class HotelEasController {
         return "redirect:/";
     }
 
+    @RequestMapping(path = "/create-room", method = RequestMethod.GET)
+    public String getRoom(Model model) {
+        return "room";
+    }
 }

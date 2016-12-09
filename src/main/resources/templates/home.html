@@ -5,6 +5,45 @@
     <title>HotelEAS</title>
 </head>
 <body>
-Hello!
+{{^user}}
+Hello, welcome to a simple and easy to use front desk web application. Please sign-up or if you already have an account login.
+<form action="/signup" method="post">
+    <input type="text" placeholder="Create Username" name="username"/>
+    <input type="password" placeholder="Create Password" name="password"/>
+    <button type="submit">Sign-Up</button>
+</form><br>
+
+<form action="/login" method="post">
+    <input type="text" placeholder="Enter Username" name="username"/>
+    <input type="password" placeholder="Enter Password" name="password"/>
+    <button type="submit">Login</button>
+</form>
+{{/user}}
+
+{{#user}}
+<form action="/logout" method="post">
+    <button type="submit">Logout</button>
+</form> <br>
+
+<form action="/create-room" method="get">
+    <button type="submit">Create Room</button>
+</form> <br>
+<table>
+    <tr>
+        <th>Room Number</th>
+        <th>Room Rate</th>
+        <th>Number of Beds</th>
+        <th>Room Type</th>
+    </tr>
+    {{#rooms}}
+    <tr>
+        <td>{{number}}</td>
+        <td>{{rate}}</td>
+        <td>{{numberOfBeds}}</td>
+        <td>{{type}}</td>
+    </tr>
+    {{/rooms}}
+</table>
+{{/user}}
 </body>
 </html>
