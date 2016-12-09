@@ -33,16 +33,10 @@ public class Guest {
     String phoneNumber;
 
     @Column
-    int reservationNumber;
-
-    @Column
     int numberOfStays;
 
     @ManyToOne
     User user;
-
-    @ManyToOne
-    Room room;
 
     @Column
     LocalDate arrival;
@@ -59,37 +53,24 @@ public class Guest {
     @Column
     LocalTime checkOutTime;
 
-    @ManyToOne
-    CreditCard creditCard;
-
-    @ManyToOne
-    Group group;
-
-    @ManyToOne
-    ThirdParty thirdParty;
 
     public Guest() {
     }
 
-    public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int reservationNumber, int numberOfStays, User user, Room room, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, CreditCard creditCard, Group group, ThirdParty thirdParty) {
+    public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.numberOfGuests = numberOfGuests;
         this.notes = notes;
         this.homeAddress = homeAddress;
         this.phoneNumber = phoneNumber;
-        this.reservationNumber = reservationNumber;
         this.numberOfStays = numberOfStays;
         this.user = user;
-        this.room = room;
         this.arrival = arrival;
         this.departure = departure;
         this.email = email;
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
-        this.creditCard = creditCard;
-        this.group = group;
-        this.thirdParty = thirdParty;
     }
 
     public int getId() {
@@ -148,14 +129,6 @@ public class Guest {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getReservationNumber() {
-        return reservationNumber;
-    }
-
-    public void setReservationNumber(int reservationNumber) {
-        this.reservationNumber = reservationNumber;
-    }
-
     public int getNumberOfStays() {
         return numberOfStays;
     }
@@ -170,14 +143,6 @@ public class Guest {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
     }
 
     public LocalDate getArrival() {
@@ -220,27 +185,4 @@ public class Guest {
         this.checkOutTime = checkOutTime;
     }
 
-    public CreditCard getCreditCard() {
-        return creditCard;
-    }
-
-    public void setCreditCard(CreditCard creditCard) {
-        this.creditCard = creditCard;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
-    public ThirdParty getThirdParty() {
-        return thirdParty;
-    }
-
-    public void setThirdParty(ThirdParty thirdParty) {
-        this.thirdParty = thirdParty;
-    }
 }

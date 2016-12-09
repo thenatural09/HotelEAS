@@ -95,13 +95,13 @@ public class HotelEasController {
     }
 
     @RequestMapping(path = "/create-guest", method = RequestMethod.POST)
-    public String createGuest(HttpSession session, String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int reservationNumber, int numberOfStays, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, int roomNumber,String type,String groupName,String thirdPartyName) throws Exception {
+    public String createGuest(HttpSession session, String firstName, String lastName, Integer numberOfGuests, String notes, String homeAddress, String phoneNumber, Integer numberOfStays, String arrival, String departure, String email, String checkInTime, String checkOutTime, Integer roomNumber,String type,String groupName,String thirdPartyName) throws Exception {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
         if (user == null) {
             throw new Exception("Forbidden");
         }
-        Guest guest = new Guest(firstName,lastName,numberOfGuests,notes,homeAddress,phoneNumber,reservationNumber,numberOfStays,user,rooms.findFirstByNumber(roomNumber),arrival,departure,email,checkInTime,checkOutTime,creditCards.findFirstByType(type),groups.findFirstByName(groupName),thirdParties.findFirstByName(thirdPartyName));
+        Guest guest = new Guest(firstName,lastName,numberOfGuests,notes,homeAddress,phoneNumber,numberOfStays,user,LocalDate.parse(arrival),LocalDate.parse(departure),email,LocalTime.parse(checkInTime),LocalTime.parse(checkOutTime));
         guests.save(guest);
         return "redirect:/";
     }
@@ -145,5 +145,10 @@ public class HotelEasController {
     @RequestMapping(path = "/create-room", method = RequestMethod.GET)
     public String getRoom(Model model) {
         return "room";
+    }
+
+    @RequestMapping(path = "/create-guest", method = RequestMethod.GET)
+    public String getGuest(Model model) {
+        return "guest";
     }
 }
