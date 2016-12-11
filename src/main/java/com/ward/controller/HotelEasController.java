@@ -1,5 +1,6 @@
 package com.ward.controller;
 
+import com.sun.istack.internal.Nullable;
 import com.ward.entities.*;
 import com.ward.services.*;
 import com.ward.utilities.PasswordStorage;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.LastModified;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
@@ -47,6 +49,26 @@ public class HotelEasController {
         model.addAttribute("guests",guestList);
         model.addAttribute("user",user);
         return "home";
+    }
+
+    @RequestMapping(path = "/go-to-guests",method = RequestMethod.POST)
+    public String goToGuests(HttpSession session) throws Exception {
+        String username = (String) session.getAttribute("username");
+        User user = users.findFirstByUsername(username);
+        if (user == null) {
+            throw new Exception("Forbidden");
+        }
+        return "redirect:/guests";
+    }
+
+    @RequestMapping(path = "/go-to-rooms",method = RequestMethod.POST)
+    public String goToRooms(HttpSession session) throws Exception {
+        String username = (String) session.getAttribute("username");
+        User user = users.findFirstByUsername(username);
+        if (user == null) {
+            throw new Exception("Forbidden");
+        }
+        return "redirect:/";
     }
 
     @RequestMapping(path = "/signup", method = RequestMethod.POST)
@@ -95,7 +117,7 @@ public class HotelEasController {
     }
 
     @RequestMapping(path = "/create-guest", method = RequestMethod.POST)
-    public String createGuest(HttpSession session, String firstName, String lastName, Integer numberOfGuests, String notes, String homeAddress, String phoneNumber, Integer numberOfStays, String arrival, String departure, String email, String checkInTime, String checkOutTime, Integer roomNumber,String type,String groupName,String thirdPartyName) throws Exception {
+    public String createGuest(HttpSession session, String firstName, String lastName, Integer numberOfGuests, String notes, String homeAddress, String phoneNumber, Integer numberOfStays, String arrival, String departure, String email, String checkInTime, String checkOutTime, @Nullable Room room, String type, String groupName, String thirdPartyName) throws Exception {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
         if (user == null) {
@@ -103,7 +125,7 @@ public class HotelEasController {
         }
         Guest guest = new Guest(firstName,lastName,numberOfGuests,notes,homeAddress,phoneNumber,numberOfStays,user,LocalDate.parse(arrival),LocalDate.parse(departure),email,LocalTime.parse(checkInTime),LocalTime.parse(checkOutTime));
         guests.save(guest);
-        return "redirect:/";
+        return "redirect:/guests";
     }
 
     @RequestMapping(path = "/create-third-party", method = RequestMethod.POST)
@@ -151,4 +173,38 @@ public class HotelEasController {
     public String getGuest(Model model) {
         return "guest";
     }
+
+    @RequestMapping(path = "/guests", method = RequestMethod.GET)
+    public String guests(HttpSession session,Model model,Integer id) {
+        String username = (String) session.getAttribute("username");
+        User user = users.findFirstByUsername(username);
+        Iterable<Guest> guestList = guests.findAll();
+        Iterable<Room> roomList = rooms.findAll();
+        model.addAttribute("rooms",roomList);
+        model.addAttribute("guests",guestList);
+        model.addAttribute("user",user);
+        return "guests";
+    }
+
+    @RequestMapping(path = "/assign-to-room",method = RequestMethod.POST)
+    public String assignToRoom(HttpSession session,Integer id, Integer roomNumber) throws Exception {
+        String username = (String) session.getAttribute("username");
+        User user = users.findFirstByUsername(username);
+        if (user == null) {
+            throw new Exception("Forbidden");
+        }
+        Room room = rooms.findFirstByNumber(roomNumber);
+        Guest g = guests.findOne(id);
+        Guest guest = new Guest(g.getFirstName(),g.getLastName(),g.getNumberOfGuests(),g.getNotes(),g.getHomeAddress(),g.getPhoneNumber(),g.getNumberOfStays(),user,LocalDate.parse(g.getArrival().toString()),LocalDate.parse(g.getDeparture().toString()),g.getEmail(),LocalTime.parse(g.getCheckInTime().toString()),LocalTime.parse(g.getCheckOutTime().toString()),room);
+        guests.save(guest);
+        return "redirect:/guests";
+    }
+
+    @RequestMapping(path = "/assign-to-room",method = RequestMethod.GET)
+    public String getAssignRoom(Model model, Integer id) {
+        Guest guest = guests.findOne(id);
+        model.addAttribute("guest",guest);
+        return "assign";
+    }
+
 }

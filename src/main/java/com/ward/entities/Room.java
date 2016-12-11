@@ -27,6 +27,9 @@ public class Room {
     @ManyToOne
     User user;
 
+    @ManyToOne
+    Guest guest;
+
     public Room() {
     }
 
@@ -38,6 +41,22 @@ public class Room {
         this.user = user;
     }
 
+    public Room(int number, double rate, int numberOfBeds, String type, User user, Guest guest) {
+        this.number = number;
+        this.rate = rate;
+        this.numberOfBeds = numberOfBeds;
+        this.type = type;
+        this.user = user;
+        this.guest = guest;
+    }
+
+    public Guest getGuest() {
+        return guest;
+    }
+
+    public void setGuest(Guest guest) {
+        this.guest = guest;
+    }
 
     public User getUser() {
         return user;

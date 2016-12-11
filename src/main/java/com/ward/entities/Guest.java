@@ -53,8 +53,28 @@ public class Guest {
     @Column
     LocalTime checkOutTime;
 
+    @ManyToOne
+    Room room;
+
 
     public Guest() {
+    }
+
+    public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, Room room) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.numberOfGuests = numberOfGuests;
+        this.notes = notes;
+        this.homeAddress = homeAddress;
+        this.phoneNumber = phoneNumber;
+        this.numberOfStays = numberOfStays;
+        this.user = user;
+        this.arrival = arrival;
+        this.departure = departure;
+        this.email = email;
+        this.checkInTime = checkInTime;
+        this.checkOutTime = checkOutTime;
+        this.room = room;
     }
 
     public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime) {
@@ -75,6 +95,14 @@ public class Guest {
 
     public int getId() {
         return id;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     public void setId(int id) {

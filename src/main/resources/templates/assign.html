@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign Room</title>
+</head>
+{{#guest}}
+<body>
+<form action="/assign-to-room", method="post">
+    <input type="hidden" value="{{id}}" name="id"/>
+    <input type="number" placeholder="Room Number" name="roomNumber"/>
+    <button type="submit">Assign to Room</button>
+</form>
+</body>
+{{/guest}}
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guest List</title>
+</head>
+<body>
+{{#user}}
+<form action="/logout" method="post">
+    <button type="submit">Logout</button>
+</form> <br>
+
+<form action="/create-guest" method="get">
+    <button type="submit">Create Guest</button>
+</form> <br>
+
+<form action="/go-to-rooms" method="post">
+    <button type="submit">Room List</button>
+</form>
+
+<table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Number of Guests</th>
+        <th>Address</th>
+        <th>Phone Number</th>
+        <th>Number of Stays</th>
+        <th>Email</th>
+        <th>Arrival Date</th>
+        <th>Departure Date</th>
+        <th>Check-In Time</th>
+        <th>Check-Out Time</th>
+        <th>Room Number</th>
+        <th></th>
+    </tr>
+    {{#guests}}
+    {{#rooms}}
+    <tr>
+        <td>{{firstName}}</td>
+        <td>{{lastName}}</td>
+        <td>{{numberOfGuests}}</td>
+        <td>{{homeAddress}}</td>
+        <td>{{phoneNumber}}</td>
+        <td>{{numberOfStays}}</td>
+        <td>{{email}}</td>
+        <td>{{arrival}}</td>
+        <td>{{departure}}</td>
+        <td>{{checkInTime}}</td>
+        <td>{{checkOutTime}}</td>
+        <td>{{number}}</td>
+        <td>
+            <form action="/assign-to-room" method="get">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Assign Room</button>
+            </form>
+        </td>
+    </tr>
+    {{/rooms}}
+    {{/guests}}
+</table>
+{{/user}}
+</body>
+</html>

@@ -29,9 +29,11 @@ Hello, welcome to a simple and easy to use front desk web application. Please si
     <button type="submit">Create Room</button>
 </form> <br>
 
-<form action="/create-guest" method="get">
-    <button type="submit">Create Guest</button>
-</form> <br>
+<form action="/go-to-guests" method="post">
+    <button type="submit">Guest List</button>
+</form>
+
+
 <table>
     <tr>
         <th>Room Number</th>
@@ -48,37 +50,6 @@ Hello, welcome to a simple and easy to use front desk web application. Please si
     </tr>
     {{/rooms}}
 </table> <br>
-
-<table>
-    <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Number of Guests</th>
-        <th>Address</th>
-        <th>Phone Number</th>
-        <th>Number of Stays</th>
-        <th>Email</th>
-        <th>Arrival Date</th>
-        <th>Departure Date</th>
-        <th>Check-In Time</th>
-        <th>Check-Out Time</th>
-    </tr>
-    {{#guests}}
-    <tr>
-        <td>{{firstName}}</td>
-        <td>{{lastName}}</td>
-        <td>{{numberOfGuests}}</td>
-        <td>{{homeAddress}}</td>
-        <td>{{phoneNumber}}</td>
-        <td>{{numberOfStays}}</td>
-        <td>{{email}}</td>
-        <td>{{arrival}}</td>
-        <td>{{departure}}</td>
-        <td>{{checkInTime}}</td>
-        <td>{{checkOutTime}}</td>
-    </tr>
-    {{/guests}}
-</table>
 
 {{/user}}
 </body>
