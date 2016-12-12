@@ -33,9 +33,9 @@
         <th>Check-Out Time</th>
         <th>Room Number</th>
         <th></th>
+        <th></th>
     </tr>
     {{#guests}}
-    {{#rooms}}
     <tr>
         <td>{{firstName}}</td>
         <td>{{lastName}}</td>
@@ -48,15 +48,20 @@
         <td>{{departure}}</td>
         <td>{{checkInTime}}</td>
         <td>{{checkOutTime}}</td>
-        <td>{{number}}</td>
+        <td>{{room.number}}</td>
         <td>
             <form action="/assign-to-room" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>
                 <button type="submit">Assign Room</button>
             </form>
         </td>
+        <td>
+            <form action="/remove-guest" method="post">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Remove Guest</button>
+            </form>
+        </td>
     </tr>
-    {{/rooms}}
     {{/guests}}
 </table>
 {{/user}}

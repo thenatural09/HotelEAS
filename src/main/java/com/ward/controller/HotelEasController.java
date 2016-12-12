@@ -4,6 +4,7 @@ import com.sun.istack.internal.Nullable;
 import com.ward.entities.*;
 import com.ward.services.*;
 import com.ward.utilities.PasswordStorage;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -117,13 +118,13 @@ public class HotelEasController {
     }
 
     @RequestMapping(path = "/create-guest", method = RequestMethod.POST)
-    public String createGuest(HttpSession session, String firstName, String lastName, Integer numberOfGuests, String notes, String homeAddress, String phoneNumber, Integer numberOfStays, String arrival, String departure, String email, String checkInTime, String checkOutTime, @Nullable Room room, String type, String groupName, String thirdPartyName) throws Exception {
+    public String createGuest(HttpSession session, String firstName, String lastName, Integer numberOfGuests, String notes, String homeAddress, String phoneNumber, Integer numberOfStays, String arrival, String departure, String email, String checkInTime, String checkOutTime, Integer roomNumber) throws Exception {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
         if (user == null) {
             throw new Exception("Forbidden");
         }
-        Guest guest = new Guest(firstName,lastName,numberOfGuests,notes,homeAddress,phoneNumber,numberOfStays,user,LocalDate.parse(arrival),LocalDate.parse(departure),email,LocalTime.parse(checkInTime),LocalTime.parse(checkOutTime));
+        Guest guest = new Guest(firstName,lastName,numberOfGuests,notes,homeAddress,phoneNumber,numberOfStays,user,LocalDate.parse(arrival),LocalDate.parse(departure),email,LocalTime.parse(checkInTime),LocalTime.parse(checkOutTime),rooms.findFirstByNumber(roomNumber));
         guests.save(guest);
         return "redirect:/guests";
     }
@@ -147,7 +148,7 @@ public class HotelEasController {
         if (user == null) {
             throw new Exception("Forbidden");
         }
-        CreditCard creditCard = new CreditCard(type,number,expirationDate,billingAddress,guests.findFirstByFirstNameAndLastName(firstName, lastName),user);
+        CreditCard creditCard = new CreditCard(type,number,expirationDate,billingAddress,user);
         creditCards.save(creditCard);
         return "redirect:/";
     }
@@ -175,12 +176,10 @@ public class HotelEasController {
     }
 
     @RequestMapping(path = "/guests", method = RequestMethod.GET)
-    public String guests(HttpSession session,Model model,Integer id) {
+    public String guests(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
         Iterable<Guest> guestList = guests.findAll();
-        Iterable<Room> roomList = rooms.findAll();
-        model.addAttribute("rooms",roomList);
         model.addAttribute("guests",guestList);
         model.addAttribute("user",user);
         return "guests";
@@ -194,9 +193,12 @@ public class HotelEasController {
             throw new Exception("Forbidden");
         }
         Room room = rooms.findFirstByNumber(roomNumber);
+        if (room == null) {
+            return "redirect:/guests";
+        }
         Guest g = guests.findOne(id);
-        Guest guest = new Guest(g.getFirstName(),g.getLastName(),g.getNumberOfGuests(),g.getNotes(),g.getHomeAddress(),g.getPhoneNumber(),g.getNumberOfStays(),user,LocalDate.parse(g.getArrival().toString()),LocalDate.parse(g.getDeparture().toString()),g.getEmail(),LocalTime.parse(g.getCheckInTime().toString()),LocalTime.parse(g.getCheckOutTime().toString()),room);
-        guests.save(guest);
+        g.setRoom(room);
+        guests.save(g);
         return "redirect:/guests";
     }
 
@@ -207,4 +209,14 @@ public class HotelEasController {
         return "assign";
     }
 
+    @RequestMapping(path = "/remove-guest",method = RequestMethod.POST)
+    public String removeGuest(HttpSession session,Integer id) throws Exception {
+        String username = (String) session.getAttribute("username");
+        User user = users.findFirstByUsername(username);
+        if (user == null) {
+            throw new Exception("Forbidden");
+        }
+        guests.delete(id);
+        return "redirect:/guests";
+    }
 }

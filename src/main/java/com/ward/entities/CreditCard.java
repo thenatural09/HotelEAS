@@ -29,20 +29,16 @@ public class CreditCard {
     String billingAddress;
 
     @ManyToOne
-    Guest guest;
-
-    @ManyToOne
     User user;
 
     public CreditCard() {
     }
 
-    public CreditCard(String type, int number, LocalDate expirationDate, String billingAddress, Guest guest, User user) {
+    public CreditCard(String type, int number, LocalDate expirationDate, String billingAddress, User user) {
         this.type = type;
         this.number = number;
         this.expirationDate = expirationDate;
         this.billingAddress = billingAddress;
-        this.guest = guest;
         this.user = user;
     }
 
@@ -94,11 +90,4 @@ public class CreditCard {
         this.billingAddress = billingAddress;
     }
 
-    public Guest getGuest() {
-        return guest;
-    }
-
-    public void setGuest(Guest guest) {
-        this.guest = guest;
-    }
 }
