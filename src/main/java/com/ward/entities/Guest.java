@@ -56,6 +56,9 @@ public class Guest {
     @ManyToOne
     Room room;
 
+    @Column
+    boolean isAssigned;
+
 
     public Guest() {
     }
@@ -91,6 +94,14 @@ public class Guest {
         this.email = email;
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
+    }
+
+    public boolean isAssigned() {
+        return isAssigned;
+    }
+
+    public void setAssigned(boolean assigned) {
+        isAssigned = assigned;
     }
 
     public int getId() {

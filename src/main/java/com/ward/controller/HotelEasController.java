@@ -1,6 +1,7 @@
 package com.ward.controller;
 
 import com.sun.istack.internal.Nullable;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.ward.entities.*;
 import com.ward.services.*;
 import com.ward.utilities.PasswordStorage;
@@ -72,6 +73,16 @@ public class HotelEasController {
         return "redirect:/";
     }
 
+    @RequestMapping(path = "/go-to-unassigned-guests",method = RequestMethod.POST)
+    public String goToUnGuests(HttpSession session) throws Exception {
+        String username = (String) session.getAttribute("username");
+        User user = users.findFirstByUsername(username);
+        if (user == null) {
+            throw new Exception("Forbidden");
+        }
+        return "redirect:/unassigned-guests";
+    }
+
     @RequestMapping(path = "/signup", method = RequestMethod.POST)
     public String signup(String username,String password,HttpSession session) throws Exception {
         User user = new User(username, PasswordStorage.createHash(password));
@@ -125,8 +136,15 @@ public class HotelEasController {
             throw new Exception("Forbidden");
         }
         Guest guest = new Guest(firstName,lastName,numberOfGuests,notes,homeAddress,phoneNumber,numberOfStays,user,LocalDate.parse(arrival),LocalDate.parse(departure),email,LocalTime.parse(checkInTime),LocalTime.parse(checkOutTime),rooms.findFirstByNumber(roomNumber));
-        guests.save(guest);
-        return "redirect:/guests";
+        if (roomNumber == 0) {
+            guest.setAssigned(false);
+            guests.save(guest);
+            return "redirect:/guests";
+        } else {
+            guest.setAssigned(true);
+            guests.save(guest);
+            return "redirect:/guests";
+        }
     }
 
     @RequestMapping(path = "/create-third-party", method = RequestMethod.POST)
@@ -185,6 +203,16 @@ public class HotelEasController {
         return "guests";
     }
 
+    @RequestMapping(path = "/unassigned-guests", method = RequestMethod.GET)
+    public String unassignedGuests(HttpSession session, Model model) {
+        String username = (String) session.getAttribute("username");
+        User user = users.findFirstByUsername(username);
+        Iterable<Guest> guestList = guests.findAll();
+        model.addAttribute("guests",guestList);
+        model.addAttribute("user",user);
+        return "unassigned-guests";
+    }
+
     @RequestMapping(path = "/assign-to-room",method = RequestMethod.POST)
     public String assignToRoom(HttpSession session,Integer id, Integer roomNumber) throws Exception {
         String username = (String) session.getAttribute("username");
@@ -198,8 +226,16 @@ public class HotelEasController {
         }
         Guest g = guests.findOne(id);
         g.setRoom(room);
-        guests.save(g);
-        return "redirect:/guests";
+        if (room.getNumber() == 0) {
+            g.setAssigned(false);
+            guests.save(g);
+            return "redirect:/guests";
+        } else {
+            g.setAssigned(true);
+            guests.save(g);
+            return "redirect:/guests";
+        }
+
     }
 
     @RequestMapping(path = "/assign-to-room",method = RequestMethod.GET)
@@ -219,4 +255,5 @@ public class HotelEasController {
         guests.delete(id);
         return "redirect:/guests";
     }
+
 }
