@@ -27,6 +27,9 @@ public class Room {
     @ManyToOne
     User user;
 
+    @Column
+    Boolean hasGuest;
+
     public Room() {
     }
 
@@ -36,6 +39,14 @@ public class Room {
         this.numberOfBeds = numberOfBeds;
         this.type = type;
         this.user = user;
+    }
+
+    public boolean isHasGuest() {
+        return hasGuest;
+    }
+
+    public void setHasGuest(boolean hasGuest) {
+        this.hasGuest = hasGuest;
     }
 
     public User getUser() {

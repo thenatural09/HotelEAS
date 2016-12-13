@@ -124,6 +124,7 @@ public class HotelEasController {
             throw new Exception("Forbidden");
         }
         Room room = new Room(number,rate,numberOfBeds,type,user);
+        room.setHasGuest(false);
         rooms.save(room);
         return "redirect:/";
     }
@@ -137,10 +138,12 @@ public class HotelEasController {
         }
         Guest guest = new Guest(firstName,lastName,numberOfGuests,notes,homeAddress,phoneNumber,numberOfStays,user,LocalDate.parse(arrival),LocalDate.parse(departure),email,LocalTime.parse(checkInTime),LocalTime.parse(checkOutTime),rooms.findFirstByNumber(roomNumber));
         if (roomNumber == 0) {
+            rooms.findFirstByNumber(roomNumber).setHasGuest(false);
             guest.setAssigned(false);
             guests.save(guest);
             return "redirect:/guests";
         } else {
+            rooms.findFirstByNumber(roomNumber).setHasGuest(true);
             guest.setAssigned(true);
             guests.save(guest);
             return "redirect:/guests";
@@ -227,10 +230,12 @@ public class HotelEasController {
         Guest g = guests.findOne(id);
         g.setRoom(room);
         if (room.getNumber() == 0) {
+            room.setHasGuest(false);
             g.setAssigned(false);
             guests.save(g);
             return "redirect:/guests";
         } else {
+            room.setHasGuest(true);
             g.setAssigned(true);
             guests.save(g);
             return "redirect:/guests";
@@ -241,6 +246,8 @@ public class HotelEasController {
     @RequestMapping(path = "/assign-to-room",method = RequestMethod.GET)
     public String getAssignRoom(Model model, Integer id) {
         Guest guest = guests.findOne(id);
+        Iterable<Room> roomList = rooms.findAll();
+        model.addAttribute("rooms",roomList);
         model.addAttribute("guest",guest);
         return "assign";
     }
