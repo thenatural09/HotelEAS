@@ -141,7 +141,7 @@ public class HotelEasController {
             rooms.findFirstByNumber(roomNumber).setHasGuest(false);
             guest.setAssigned(false);
             guests.save(guest);
-            return "redirect:/guests";
+            return "redirect:/unassigned-guests";
         } else {
             rooms.findFirstByNumber(roomNumber).setHasGuest(true);
             guest.setAssigned(true);
@@ -234,7 +234,7 @@ public class HotelEasController {
             room.setHasGuest(false);
             g.setAssigned(false);
             guests.save(g);
-            return "redirect:/guests";
+            return "redirect:/unassigned-guests";
         } else {
             room.setHasGuest(true);
             g.setAssigned(true);
