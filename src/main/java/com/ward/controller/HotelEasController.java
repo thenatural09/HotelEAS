@@ -223,11 +223,12 @@ public class HotelEasController {
         if (user == null) {
             throw new Exception("Forbidden");
         }
+        Guest g = guests.findOne(id);
+        g.getRoom().setHasGuest(false);
         Room room = rooms.findFirstByNumber(roomNumber);
         if (room == null) {
             return "redirect:/guests";
         }
-        Guest g = guests.findOne(id);
         g.setRoom(room);
         if (room.getNumber() == 0) {
             room.setHasGuest(false);
@@ -240,7 +241,6 @@ public class HotelEasController {
             guests.save(g);
             return "redirect:/guests";
         }
-
     }
 
     @RequestMapping(path = "/assign-to-room",method = RequestMethod.GET)
@@ -259,6 +259,7 @@ public class HotelEasController {
         if (user == null) {
             throw new Exception("Forbidden");
         }
+        guests.findOne(id).getRoom().setHasGuest(false);
         guests.delete(id);
         return "redirect:/guests";
     }
