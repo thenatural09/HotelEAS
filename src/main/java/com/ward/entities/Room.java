@@ -30,6 +30,9 @@ public class Room {
     @Column
     Boolean hasGuest;
 
+    @Column
+    boolean isClean;
+
     public Room() {
     }
 
@@ -39,6 +42,14 @@ public class Room {
         this.numberOfBeds = numberOfBeds;
         this.type = type;
         this.user = user;
+    }
+
+    public boolean isClean() {
+        return isClean;
+    }
+
+    public void setClean(boolean clean) {
+        isClean = clean;
     }
 
     public boolean isHasGuest() {

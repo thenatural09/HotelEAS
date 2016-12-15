@@ -44,6 +44,8 @@ Hello, welcome to a simple and easy to use front desk web application. Please si
         <th>Room Rate</th>
         <th>Number of Beds</th>
         <th>Room Type</th>
+        <th>Status</th>
+        <th></th>
     </tr>
     {{#rooms}}
     <tr>
@@ -51,6 +53,21 @@ Hello, welcome to a simple and easy to use front desk web application. Please si
         <td>{{rate}}</td>
         <td>{{numberOfBeds}}</td>
         <td>{{type}}</td>
+        <td>{{#hasGuest}}Occupied{{/hasGuest}}{{^hasGuest}}{{#isClean}}Vacant Clean{{/isClean}}{{^isClean}}Vacant Dirty{{/isClean}}{{/hasGuest}}</td>
+        <td>
+            {{#isClean}}
+            <form action="/set-is-dirty" method="post">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Set As Dirty</button>
+            </form>
+            {{/isClean}}
+            {{^isClean}}
+            <form action="/set-is-clean" method="post">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Set As Clean</button>
+            </form>
+            {{/isClean}}
+        </td>
     </tr>
     {{/rooms}}
 </table> <br>

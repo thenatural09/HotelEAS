@@ -45,12 +45,39 @@ public class HotelEasController {
     public String home(Model model, HttpSession session) throws Exception {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
-        Iterable<Room> roomList = rooms.findAll();
+        List<Room> roomList;
         Iterable<Guest> guestList = guests.findAll();
+        roomList = rooms.findByOrderByNumberDesc();
         model.addAttribute("rooms",roomList);
         model.addAttribute("guests",guestList);
         model.addAttribute("user",user);
         return "home";
+    }
+
+    @RequestMapping(path = "/set-is-clean",method = RequestMethod.POST)
+    public String setIsClean(HttpSession session,Integer id) throws Exception {
+        String username = (String) session.getAttribute("username");
+        User user = users.findFirstByUsername(username);
+        if (user == null) {
+            throw new Exception("Forbidden");
+        }
+        Room room = rooms.findOne(id);
+        room.setClean(true);
+        rooms.save(room);
+        return "redirect:/";
+    }
+
+    @RequestMapping(path = "/set-is-dirty",method = RequestMethod.POST)
+    public String setIsDirty(HttpSession session,Integer id) throws Exception {
+        String username = (String) session.getAttribute("username");
+        User user = users.findFirstByUsername(username);
+        if (user == null) {
+            throw new Exception("Forbidden");
+        }
+        Room room = rooms.findOne(id);
+        room.setClean(false);
+        rooms.save(room);
+        return "redirect:/";
     }
 
     @RequestMapping(path = "/go-to-guests",method = RequestMethod.POST)
@@ -125,6 +152,7 @@ public class HotelEasController {
         }
         Room room = new Room(number,rate,numberOfBeds,type,user);
         room.setHasGuest(false);
+        room.setClean(false);
         rooms.save(room);
         return "redirect:/";
     }
