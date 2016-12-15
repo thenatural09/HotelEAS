@@ -55,6 +55,7 @@ Hello, welcome to a simple and easy to use front desk web application. Please si
         <td>{{type}}</td>
         <td>{{#hasGuest}}Occupied{{/hasGuest}}{{^hasGuest}}{{#isClean}}Vacant Clean{{/isClean}}{{^isClean}}Vacant Dirty{{/isClean}}{{/hasGuest}}</td>
         <td>
+            {{^hasGuest}}
             {{#isClean}}
             <form action="/set-is-dirty" method="post">
                 <input type="hidden" value="{{id}}" name="id"/>
@@ -67,6 +68,7 @@ Hello, welcome to a simple and easy to use front desk web application. Please si
                 <button type="submit">Set As Clean</button>
             </form>
             {{/isClean}}
+            {{/hasGuest}}
         </td>
     </tr>
     {{/rooms}}
