@@ -38,6 +38,25 @@ Hello, welcome to a simple and easy to use front desk web application. Please si
 </form> <br>
 
 
+<form action="/go-to-rooms" method="post">
+    <button type="submit">All Rooms</button>
+</form>
+
+<form action="/" method="get">
+    <input type="hidden" value="1" name="numberOfBeds"/>
+    <button type="submit">Single Bedroom</button>
+</form>
+
+<form action="/" method="get">
+    <input type="hidden" value="2" name="numberOfBeds"/>
+    <button type="submit">Two Bedroom</button>
+</form>
+
+<form action="/" method="get">
+    <input type="hidden" value="3" name="numberOfBeds"/>
+    <button type="submit">Three Bedroom</button>
+</form> <br>
+
 <table>
     <tr>
         <th>Room Number</th>

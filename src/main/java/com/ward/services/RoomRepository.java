@@ -12,4 +12,5 @@ import java.util.List;
 public interface RoomRepository extends CrudRepository<Room,Integer> {
     Room findFirstByNumber(int number);
     List<Room> findByOrderByNumberDesc();
+    List<Room> findByNumberOfBeds(Integer numberOfBeds);
 }

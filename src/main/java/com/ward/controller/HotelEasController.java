@@ -42,12 +42,16 @@ public class HotelEasController {
     UserRepository users;
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String home(Model model, HttpSession session) throws Exception {
+    public String home(Model model, HttpSession session, Integer numberOfBeds) throws Exception {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
         List<Room> roomList;
         Iterable<Guest> guestList = guests.findAll();
-        roomList = rooms.findByOrderByNumberDesc();
+        if (numberOfBeds != null) {
+            roomList = rooms.findByNumberOfBeds(numberOfBeds);
+        } else {
+            roomList = rooms.findByOrderByNumberDesc();
+        }
         model.addAttribute("rooms",roomList);
         model.addAttribute("guests",guestList);
         model.addAttribute("user",user);
