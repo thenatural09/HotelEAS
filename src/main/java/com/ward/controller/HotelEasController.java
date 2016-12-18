@@ -172,11 +172,13 @@ public class HotelEasController {
         if (roomNumber == 0) {
             rooms.findFirstByNumber(roomNumber).setHasGuest(false);
             guest.setAssigned(false);
+            guest.setHasCreditCard(false);
             guests.save(guest);
             return "redirect:/unassigned-guests";
         } else {
             rooms.findFirstByNumber(roomNumber).setHasGuest(true);
             guest.setAssigned(true);
+            guest.setHasCreditCard(false);
             guests.save(guest);
             return "redirect:/guests";
         }
@@ -195,15 +197,24 @@ public class HotelEasController {
     }
 
     @RequestMapping(path = "/create-credit-card", method = RequestMethod.POST)
-    public String createCreditCard(HttpSession session,String type, int number, LocalDate expirationDate, String billingAddress,String firstName,String lastName) throws Exception {
+    public String createCreditCard(Integer id,HttpSession session,String type, int number, String expirationDate, String billingAddress,String firstName,String lastName) throws Exception {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
         if (user == null) {
             throw new Exception("Forbidden");
         }
-        CreditCard creditCard = new CreditCard(type,number,expirationDate,billingAddress,user);
+        Guest guest = guests.findOne(id);
+        CreditCard creditCard = new CreditCard(type,number,LocalDate.parse(expirationDate),billingAddress,user);
+        guest.setCreditCard(creditCard);
+        guest.setHasCreditCard(true);
         creditCards.save(creditCard);
-        return "redirect:/";
+        return "redirect:/guests";
+    }
+
+    @RequestMapping(path ="/create-credit-card",method = RequestMethod.GET)
+    public String getCreditCard(Integer id,HttpSession session) {
+        Guest guest = guests.findOne(id);
+        return "create-credit-card";
     }
 
     @RequestMapping(path = "/create-group", method = RequestMethod.POST)
@@ -295,5 +306,4 @@ public class HotelEasController {
         guests.delete(id);
         return "redirect:/guests";
     }
-
 }

@@ -56,8 +56,14 @@ public class Guest {
     @ManyToOne
     Room room;
 
+    @ManyToOne
+    CreditCard creditCard;
+
     @Column
     boolean isAssigned;
+
+    @Column
+    Boolean hasCreditCard;
 
 
     public Guest() {
@@ -80,7 +86,7 @@ public class Guest {
         this.room = room;
     }
 
-    public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime) {
+    public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, Room room, CreditCard creditCard) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.numberOfGuests = numberOfGuests;
@@ -94,6 +100,24 @@ public class Guest {
         this.email = email;
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
+        this.room = room;
+        this.creditCard = creditCard;
+    }
+
+    public boolean isHasCreditCard() {
+        return hasCreditCard;
+    }
+
+    public void setHasCreditCard(boolean hasCreditCard) {
+        this.hasCreditCard = hasCreditCard;
+    }
+
+    public CreditCard getCreditCard() {
+        return creditCard;
+    }
+
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
     }
 
     public boolean isAssigned() {
