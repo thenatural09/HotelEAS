@@ -19,8 +19,7 @@ public class CreditCard {
     String type;
 
     @Column
-    @JsonIgnore
-    int number;
+    Integer number;
 
     @Column
     LocalDate expirationDate;
