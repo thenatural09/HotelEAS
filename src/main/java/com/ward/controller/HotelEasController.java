@@ -197,7 +197,7 @@ public class HotelEasController {
     }
 
     @RequestMapping(path = "/create-credit-card", method = RequestMethod.POST)
-    public String createCreditCard(Integer id,HttpSession session,String type, Integer number, String expirationDate, String billingAddress) throws Exception {
+    public String createCreditCard(Integer id,HttpSession session,String type, Long number, String expirationDate, String billingAddress) throws Exception {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
         if (user == null) {
@@ -209,6 +209,9 @@ public class HotelEasController {
         g.setCreditCard(creditCard);
         g.setHasCreditCard(true);
         guests.save(g);
+        if (g.getRoom().getNumber() == 0) {
+            return "redirect:/unassigned-guests";
+        }
         return "redirect:/guests";
     }
 

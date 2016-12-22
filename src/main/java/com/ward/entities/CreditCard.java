@@ -19,7 +19,7 @@ public class CreditCard {
     String type;
 
     @Column
-    Integer number;
+    Long number;
 
     @Column
     LocalDate expirationDate;
@@ -33,7 +33,7 @@ public class CreditCard {
     public CreditCard() {
     }
 
-    public CreditCard(String type, int number, LocalDate expirationDate, String billingAddress, User user) {
+    public CreditCard(String type, Long number, LocalDate expirationDate, String billingAddress, User user) {
         this.type = type;
         this.number = number;
         this.expirationDate = expirationDate;
@@ -65,11 +65,11 @@ public class CreditCard {
         this.type = type;
     }
 
-    public int getNumber() {
+    public Long getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Long number) {
         this.number = number;
     }
 
