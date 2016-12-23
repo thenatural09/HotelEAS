@@ -55,7 +55,10 @@
         <td>{{checkInTime}}</td>
         <td>{{checkOutTime}}</td>
         <td>{{room.number}}</td>
-        <td>{{#hasCreditCard}}{{creditCard.type}}{{/hasCreditCard}}
+        <td>{{#hasCreditCard}}<form action="/credit-card-info" method="get">
+            <input type="hidden" value="{{id}}" name="id">
+            <button type="submit">{{creditCard.type}}</button>
+        </form> {{/hasCreditCard}}
         {{^hasCreditCard}}<form action="/create-credit-card" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>
                 <button type="submit">Add Credit Card Info</button>

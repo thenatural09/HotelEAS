@@ -30,6 +30,9 @@ public class CreditCard {
     @ManyToOne
     User user;
 
+    @ManyToOne
+    Guest guest;
+
     public CreditCard() {
     }
 
@@ -39,6 +42,14 @@ public class CreditCard {
         this.expirationDate = expirationDate;
         this.billingAddress = billingAddress;
         this.user = user;
+    }
+
+    public Guest getGuest() {
+        return guest;
+    }
+
+    public void setGuest(Guest guest) {
+        this.guest = guest;
     }
 
     public User getUser() {

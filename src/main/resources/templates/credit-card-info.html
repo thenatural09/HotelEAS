@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Credit Card Info</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Type</th>
+        <th>Number</th>
+        <th>Expiration Date</th>
+        <th>Billing Address</th>
+    </tr>
+    {{#creditCard}}
+    <tr>
+        <td>{{type}}</td>
+        <td>{{number}}</td>
+        <td>{{expirationDate}}</td>
+        <td>{{billingAddress}}</td>
+    </tr>
+    {{/creditCard}}
+</table>
+</body>
+</html>

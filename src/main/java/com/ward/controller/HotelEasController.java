@@ -203,9 +203,10 @@ public class HotelEasController {
         if (user == null) {
             throw new Exception("Forbidden");
         }
-        CreditCard creditCard = new CreditCard(type,number,LocalDate.parse(expirationDate),billingAddress,user);
-        creditCards.save(creditCard);
         Guest g = guests.findOne(id);
+        CreditCard creditCard = new CreditCard(type,number,LocalDate.parse(expirationDate),billingAddress,user);
+        creditCard.setGuest(g);
+        creditCards.save(creditCard);
         g.setCreditCard(creditCard);
         g.setHasCreditCard(true);
         guests.save(g);
@@ -310,5 +311,12 @@ public class HotelEasController {
         guests.findOne(id).getRoom().setHasGuest(false);
         guests.delete(id);
         return "redirect:/guests";
+    }
+
+    @RequestMapping(path = "/credit-card-info",method = RequestMethod.GET)
+    public String creditCardInfo(Model model, Integer id) {
+        CreditCard creditCard = creditCards.findOne(id);
+        model.addAttribute("creditCard",creditCard);
+        return "credit-card-info";
     }
 }
