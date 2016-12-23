@@ -26,5 +26,23 @@
     <input type="text" placeholder="Room Assignment" name="roomNumber"/>
     <button type="submit">Create Guest</button>
 </form>
+<table>
+    <tr>
+        <th>Room Number</th>
+        <th>Room Rate</th>
+        <th>Number of Beds</th>
+        <th>Room Type</th>
+    </tr>
+    {{#rooms}}
+    {{^hasGuest}}
+    <tr>
+        <td>{{number}}</td>
+        <td>{{rate}}</td>
+        <td>{{numberOfBeds}}</td>
+        <td>{{type}}</td>
+    </tr>
+    {{/hasGuest}}
+    {{/rooms}}
+</table> <br>
 </body>
 </html>

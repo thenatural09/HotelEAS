@@ -242,6 +242,8 @@ public class HotelEasController {
 
     @RequestMapping(path = "/create-guest", method = RequestMethod.GET)
     public String getGuest(Model model) {
+        Iterable<Room> roomList = rooms.findAll();
+        model.addAttribute("rooms",roomList);
         return "guest";
     }
 
