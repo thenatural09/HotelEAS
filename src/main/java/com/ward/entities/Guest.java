@@ -69,6 +69,26 @@ public class Guest {
     public Guest() {
     }
 
+    public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, Room room, CreditCard creditCard, boolean isAssigned, Boolean hasCreditCard) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.numberOfGuests = numberOfGuests;
+        this.notes = notes;
+        this.homeAddress = homeAddress;
+        this.phoneNumber = phoneNumber;
+        this.numberOfStays = numberOfStays;
+        this.user = user;
+        this.arrival = arrival;
+        this.departure = departure;
+        this.email = email;
+        this.checkInTime = checkInTime;
+        this.checkOutTime = checkOutTime;
+        this.room = room;
+        this.creditCard = creditCard;
+        this.isAssigned = isAssigned;
+        this.hasCreditCard = hasCreditCard;
+    }
+
     public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, Room room) {
         this.firstName = firstName;
         this.lastName = lastName;

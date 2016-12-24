@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.LastModified;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,6 +42,32 @@ public class HotelEasController {
 
     @Autowired
     UserRepository users;
+
+    @PostConstruct
+    public void init() throws PasswordStorage.CannotPerformOperationException {
+        User defaultUser = new User("Troy", PasswordStorage.createHash("pass123"));
+        if (users.findFirstByUsername("Troy") == null) {
+            users.save(defaultUser);
+        }
+        ArrayList<Room> roomList = new ArrayList<>();
+        roomList.add(new Room(0,0,0,"Waiting To Be Assigned",defaultUser,false,true));
+        roomList.add(new Room(201,750,2,"Residential Suite",defaultUser,true,true));
+        roomList.add(new Room(301,500,1,"Suite",defaultUser,false,true));
+        roomList.add(new Room(321,1200,3,"Residential Suite",defaultUser,false,true));
+        roomList.add(new Room(231,250,1,"Studio",defaultUser,false,true));
+        roomList.add(new Room(531,300,1,"Signature Studio",defaultUser,false,true));
+        if(rooms.findFirstByNumber(0) == null) {
+            rooms.save(roomList);
+        }
+        ArrayList<Guest> guestList = new ArrayList<>();
+        guestList.add(new Guest("Troy","Ward",2,"Needy","93 Smith St","6823513855",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-25"),"tward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(201),null,true,false));
+        guestList.add(new Guest("Bob","Ward",3,"Helpful","83 Smithfield Rd","9389200202",4,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-28"),"bward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false));
+        guestList.add(new Guest("Paul","Ward",4,"Might Be Late","34 Orange St","3839292929",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-26"),"pward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false));
+        guestList.add(new Guest("Carl","Ward",1,"Needy","89 Smith St","238238293023",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-27"),"cward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false));
+        if (guests.findFirstByFirstNameAndLastName("Troy","Ward") == null) {
+            guests.save(guestList);
+        }
+    }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String home(Model model, HttpSession session, Integer numberOfBeds) throws Exception {

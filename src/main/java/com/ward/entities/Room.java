@@ -36,7 +36,17 @@ public class Room {
     public Room() {
     }
 
-    public Room(int number, double rate, int numberOfBeds, String type,User user) {
+    public Room(int number, double rate, int numberOfBeds, String type, User user, Boolean hasGuest, boolean isClean) {
+        this.number = number;
+        this.rate = rate;
+        this.numberOfBeds = numberOfBeds;
+        this.type = type;
+        this.user = user;
+        this.hasGuest = hasGuest;
+        this.isClean = isClean;
+    }
+
+    public Room(int number, double rate, int numberOfBeds, String type, User user) {
         this.number = number;
         this.rate = rate;
         this.numberOfBeds = numberOfBeds;
