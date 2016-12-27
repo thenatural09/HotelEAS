@@ -37,6 +37,7 @@
         <th>Check-Out Time</th>
         <th>Room Number</th>
         <th>Credit Card Info</th>
+        <th>Group Info</th>
         <th></th>
         <th></th>
     </tr>
@@ -63,6 +64,12 @@
                 <input type="hidden" value="{{id}}" name="id"/>
                 <button type="submit">Add Credit Card Info</button>
             </form> {{/hasCreditCard}}</td>
+        <td>{{#isInGroup}}{{group.name}}{{/isInGroup}}
+        {{^isInGroup}}
+            <form action="/create-group" method="get">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Add To Group</button>
+            </form> {{/isInGroup}}</td>
         <td>
             <form action="/assign-to-room" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>

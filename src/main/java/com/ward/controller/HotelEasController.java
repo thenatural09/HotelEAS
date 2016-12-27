@@ -60,10 +60,10 @@ public class HotelEasController {
             rooms.save(roomList);
         }
         ArrayList<Guest> guestList = new ArrayList<>();
-        guestList.add(new Guest("Troy","Ward",2,"Needy","93 Smith St","6823513855",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-25"),"tward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(201),null,true,false));
-        guestList.add(new Guest("Bob","Ward",3,"Helpful","83 Smithfield Rd","9389200202",4,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-28"),"bward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false));
-        guestList.add(new Guest("Paul","Ward",4,"Might Be Late","34 Orange St","3839292929",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-26"),"pward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false));
-        guestList.add(new Guest("Carl","Ward",1,"Needy","89 Smith St","238238293023",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-27"),"cward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false));
+        guestList.add(new Guest("Troy","Ward",2,"Needy","93 Smith St","6823513855",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-25"),"tward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(201),null,true,false,false,null));
+        guestList.add(new Guest("Bob","Ward",3,"Helpful","83 Smithfield Rd","9389200202",4,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-28"),"bward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false,false,null));
+        guestList.add(new Guest("Paul","Ward",4,"Might Be Late","34 Orange St","3839292929",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-26"),"pward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false,false,null));
+        guestList.add(new Guest("Carl","Ward",1,"Needy","89 Smith St","238238293023",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-27"),"cward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false,false,null));
         if (guests.findFirstByFirstNameAndLastName("Troy","Ward") == null) {
             guests.save(guestList);
         }
@@ -201,12 +201,14 @@ public class HotelEasController {
             rooms.findFirstByNumber(roomNumber).setHasGuest(false);
             guest.setAssigned(false);
             guest.setHasCreditCard(false);
+            guest.setInGroup(false);
             guests.save(guest);
             return "redirect:/unassigned-guests";
         } else {
             rooms.findFirstByNumber(roomNumber).setHasGuest(true);
             guest.setAssigned(true);
             guest.setHasCreditCard(false);
+            guest.setInGroup(false);
             guests.save(guest);
             return "redirect:/guests";
         }
@@ -252,15 +254,22 @@ public class HotelEasController {
     }
 
     @RequestMapping(path = "/create-group", method = RequestMethod.POST)
-    public String createGroup(HttpSession session,String name, int numberOfRooms,double discount, String event, LocalDate arrival, LocalDate departure,int roomNumber) throws Exception {
+    public String createGroup(Integer id,HttpSession session,String name,double discount, String event, String arrival, String departure) throws Exception {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
         if (user == null) {
             throw new Exception("Forbidden");
         }
-        Group group = new Group(name,numberOfRooms,rooms.findFirstByNumber(roomNumber),discount,event,arrival,departure,user);
+        Guest g = guests.findOne(id);
+        Group group = new Group(name,discount,event,LocalDate.parse(arrival),LocalDate.parse(departure),user);
+        ArrayList<Guest> guestArrayList = new ArrayList<>();
+        guestArrayList.add(g);
+        group.setGuestsInGroup(guestArrayList);
+        g.setGroup(group);
+        g.setInGroup(true);
         groups.save(group);
-        return "redirect:/";
+        guests.save(g);
+        return "redirect:/guests";
     }
 
     @RequestMapping(path = "/create-room", method = RequestMethod.GET)
@@ -348,5 +357,12 @@ public class HotelEasController {
         CreditCard creditCard = creditCards.findOne(id);
         model.addAttribute("creditCard",creditCard);
         return "credit-card-info";
+    }
+
+    @RequestMapping(path = "/create-group",method = RequestMethod.GET)
+    public String addToGroup(Model model, Integer id) {
+        Guest guest = guests.findOne(id);
+        model.addAttribute("guest",guest);
+        return "create-group";
     }
 }

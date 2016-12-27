@@ -3,6 +3,7 @@ package com.ward.entities;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Troy on 12/6/16.
@@ -16,12 +17,6 @@ public class Group {
 
     @Column
     String name;
-
-    @Column
-    int numberOfRooms;
-
-    @ManyToOne
-    Room room;
 
     @Column
     double discount;
@@ -38,14 +33,15 @@ public class Group {
     @ManyToOne
     User user;
 
+    @OneToMany
+    List<Guest> guestsInGroup;
+
 
     public Group() {
     }
 
-    public Group(String name, int numberOfRooms, Room room, double discount, String event, LocalDate arrival, LocalDate departure, User user) {
+    public Group(String name, double discount, String event, LocalDate arrival, LocalDate departure, User user) {
         this.name = name;
-        this.numberOfRooms = numberOfRooms;
-        this.room = room;
         this.discount = discount;
         this.event = event;
         this.arrival = arrival;
@@ -53,6 +49,13 @@ public class Group {
         this.user = user;
     }
 
+    public List<Guest> getGuestsInGroup() {
+        return guestsInGroup;
+    }
+
+    public void setGuestsInGroup(ArrayList<Guest> guestsInGroup) {
+        this.guestsInGroup = guestsInGroup;
+    }
 
     public int getId() {
         return id;
@@ -68,22 +71,6 @@ public class Group {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getNumberOfRooms() {
-        return numberOfRooms;
-    }
-
-    public void setNumberOfRooms(int numberOfRooms) {
-        this.numberOfRooms = numberOfRooms;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
     }
 
     public double getDiscount() {
