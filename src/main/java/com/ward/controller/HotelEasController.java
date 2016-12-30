@@ -365,4 +365,40 @@ public class HotelEasController {
         model.addAttribute("guest",guest);
         return "create-group";
     }
+
+    @RequestMapping(path = "/assign-to-group", method = RequestMethod.POST)
+    public String assignToGroupPost(HttpSession session,Integer id,String name) throws Exception {
+        String username = (String) session.getAttribute("username");
+        User user = users.findFirstByUsername(username);
+        if (user == null) {
+            throw new Exception("Forbidden");
+        }
+        Guest guest = guests.findOne(id);
+        Group group = groups.findFirstByName(name);
+        guest.setInGroup(true);
+        guest.setGroup(group);
+        group.getGuestsInGroup().add(guest);
+        guests.save(guest);
+        groups.save(group);
+        if (guest.getRoom().getNumber() == 0) {
+            return "redirect:/unassigned-guests";
+        }
+        return "redirect:/guests";
+    }
+
+    @RequestMapping(path = "/assign-to-group", method = RequestMethod.GET)
+    public String assignToGroup(Model model, Integer id) {
+        Guest guest = guests.findOne(id);
+        model.addAttribute("guest",guest);
+        return "assign-to-group";
+    }
+
+    @RequestMapping(path = "/group-info",method = RequestMethod.GET)
+    public String groupInfo(Model model, Integer id) {
+        Group group = groups.findOne(id);
+        Iterable<Guest> guestList = guests.findByGroup(group);
+        model.addAttribute("group",group);
+        model.addAttribute("guests",guestList);
+        return "group-info";
+    }
 }
