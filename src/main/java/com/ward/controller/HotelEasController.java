@@ -236,9 +236,9 @@ public class HotelEasController {
         Guest g = guests.findOne(id);
         CreditCard creditCard = new CreditCard(type,number,LocalDate.parse(expirationDate),billingAddress,user);
         creditCard.setGuest(g);
-        creditCards.save(creditCard);
         g.setCreditCard(creditCard);
         g.setHasCreditCard(true);
+        creditCards.save(creditCard);
         guests.save(g);
         if (g.getRoom().getNumber() == 0) {
             return "redirect:/unassigned-guests";

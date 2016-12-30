@@ -75,7 +75,7 @@ public class Guest {
     public Guest() {
     }
 
-    public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, Room room, CreditCard creditCard, boolean isAssigned, Boolean hasCreditCard) {
+    public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, Room room, CreditCard creditCard, boolean isAssigned, Boolean hasCreditCard, Boolean isInGroup, Group group) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.numberOfGuests = numberOfGuests;
@@ -93,6 +93,8 @@ public class Guest {
         this.creditCard = creditCard;
         this.isAssigned = isAssigned;
         this.hasCreditCard = hasCreditCard;
+        this.isInGroup = isInGroup;
+        this.group = group;
     }
 
     public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, Room room) {
@@ -112,46 +114,6 @@ public class Guest {
         this.room = room;
     }
 
-    public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, Room room, CreditCard creditCard) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.numberOfGuests = numberOfGuests;
-        this.notes = notes;
-        this.homeAddress = homeAddress;
-        this.phoneNumber = phoneNumber;
-        this.numberOfStays = numberOfStays;
-        this.user = user;
-        this.arrival = arrival;
-        this.departure = departure;
-        this.email = email;
-        this.checkInTime = checkInTime;
-        this.checkOutTime = checkOutTime;
-        this.room = room;
-        this.creditCard = creditCard;
-    }
-
-    public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, Room room, CreditCard creditCard, boolean isAssigned, Boolean hasCreditCard, Boolean isGroup, Group group) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.numberOfGuests = numberOfGuests;
-        this.notes = notes;
-        this.homeAddress = homeAddress;
-        this.phoneNumber = phoneNumber;
-        this.numberOfStays = numberOfStays;
-        this.user = user;
-        this.arrival = arrival;
-        this.departure = departure;
-        this.email = email;
-        this.checkInTime = checkInTime;
-        this.checkOutTime = checkOutTime;
-        this.room = room;
-        this.creditCard = creditCard;
-        this.isAssigned = isAssigned;
-        this.hasCreditCard = hasCreditCard;
-        this.isInGroup = isGroup;
-        this.group = group;
-    }
-
     public Boolean getHasCreditCard() {
         return hasCreditCard;
     }
@@ -160,14 +122,14 @@ public class Guest {
         this.hasCreditCard = hasCreditCard;
     }
 
-    public Boolean getGroup() {
-        return isInGroup;
-    }
 
     public void setGroup(Group group) {
         this.group = group;
     }
 
+    public Group getGroup() {
+        return group;
+    }
 
     public void setInGroup(Boolean inGroup) {
         isInGroup = inGroup;
