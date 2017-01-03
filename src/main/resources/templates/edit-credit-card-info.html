@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Credit Card Info</title>
+</head>
+<body>
+<form action="/go-to-guests" method="post">
+    <button type="submit">Assigned Guests</button>
+</form> <br>
+<form action="/go-to-unassigned-guests" method="post">
+    <button type="submit">Unassigned Guests</button>
+</form> <br>
+{{#creditCard}}
+<form action="/edit-credit-card-info" method="post">
+    <input type="hidden" value="{{id}}" name="id"/>
+    <input type="text" placeholder="{{type}}" name="type"/>
+    <input type="text" placeholder="{{ownerName}}" name="ownerName"/>
+    <input type="number" placeholder="{{number}}" name="number"/>
+    <input type="date" placeholder="{{expirationDate}}" name="expirationDate"/>
+    <input type="text" placeholder="{{billingAddress}}" name="billingAddress"/>
+    <button type="submit">Enter Credit Card</button>
+</form>
+{{/creditCard}}
+</body>
+</html>

@@ -1,9 +1,11 @@
 package com.ward.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.ward.entities.CreditCard;
 import com.ward.entities.Guest;
 import com.ward.entities.User;
 import com.ward.services.*;
+import org.hibernate.boot.jaxb.hbm.spi.JaxbHbmIndexManyToAnyType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,5 +74,29 @@ public class CreditCardController {
         Iterable<CreditCard> creditCardList = creditCards.findByGuest(guest);
         model.addAttribute("creditCards",creditCardList);
         return "credit-card-info";
+    }
+
+    @RequestMapping(path = "/edit-credit-card-info", method = RequestMethod.POST)
+    public String editCardPost(HttpSession session,Integer id,String type, String ownerName, Long number, String expirationDate, String billingAddress) throws Exception {
+        String username = (String) session.getAttribute("username");
+        User user = users.findFirstByUsername(username);
+        if (user == null) {
+            throw new Exception("Forbidden");
+        }
+        CreditCard creditCard = creditCards.findOne(id);
+        creditCard.setType(type);
+        creditCard.setOwnerName(ownerName);
+        creditCard.setNumber(number);
+        creditCard.setExpirationDate(LocalDate.parse(expirationDate));
+        creditCard.setBillingAddress(billingAddress);
+        creditCards.save(creditCard);
+        return "redirect:/guests";
+    }
+
+    @RequestMapping(path = "/edit-credit-card-info", method = RequestMethod.GET)
+    public String editCardGet(Model model,Integer id) {
+        CreditCard creditCard = creditCards.findOne(id);
+        model.addAttribute("creditCard",creditCard);
+        return "edit-credit-card-info";
     }
 }
