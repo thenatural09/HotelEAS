@@ -227,16 +227,18 @@ public class HotelEasController {
     }
 
     @RequestMapping(path = "/create-credit-card", method = RequestMethod.POST)
-    public String createCreditCard(Integer id,HttpSession session,String type, Long number, String expirationDate, String billingAddress) throws Exception {
+    public String createCreditCard(Integer id,HttpSession session,String type,String ownerName, Long number, String expirationDate, String billingAddress) throws Exception {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
         if (user == null) {
             throw new Exception("Forbidden");
         }
+        ArrayList<CreditCard> creditCardArrayList = new ArrayList<>();
         Guest g = guests.findOne(id);
-        CreditCard creditCard = new CreditCard(type,number,LocalDate.parse(expirationDate),billingAddress,user);
+        CreditCard creditCard = new CreditCard(type,ownerName,number,LocalDate.parse(expirationDate),billingAddress,user);
         creditCard.setGuest(g);
-        g.setCreditCard(creditCard);
+        creditCardArrayList.add(creditCard);
+        g.setCreditCards(creditCardArrayList);
         g.setHasCreditCard(true);
         creditCards.save(creditCard);
         guests.save(g);
@@ -354,8 +356,9 @@ public class HotelEasController {
 
     @RequestMapping(path = "/credit-card-info",method = RequestMethod.GET)
     public String creditCardInfo(Model model, Integer id) {
-        CreditCard creditCard = creditCards.findOne(id);
-        model.addAttribute("creditCard",creditCard);
+        Guest guest = guests.findOne(id);
+        Iterable<CreditCard> creditCardList = creditCards.findByGuest(guest);
+        model.addAttribute("creditCards",creditCardList);
         return "credit-card-info";
     }
 

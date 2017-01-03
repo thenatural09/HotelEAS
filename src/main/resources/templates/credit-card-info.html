@@ -12,20 +12,22 @@
     <button type="submit">Unassigned Guests</button>
 </form> <br>
 <table>
-    {{#creditCard}}
     <tr>
         <th>Type</th>
+        <th>Name</th>
         <th>Number</th>
         <th>Expiration Date</th>
         <th>Billing Address</th>
     </tr>
+    {{#creditCards}}
     <tr>
         <td>{{type}}</td>
+        <td>{{ownerName}}</td>
         <td>{{number}}</td>
         <td>{{expirationDate}}</td>
         <td>{{billingAddress}}</td>
     </tr>
-    {{/creditCard}}
+    {{/creditCards}}
 </table>
 </body>
 </html>

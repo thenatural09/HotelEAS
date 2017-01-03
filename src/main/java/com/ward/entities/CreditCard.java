@@ -19,6 +19,9 @@ public class CreditCard {
     String type;
 
     @Column
+    String ownerName;
+
+    @Column
     Long number;
 
     @Column
@@ -36,12 +39,21 @@ public class CreditCard {
     public CreditCard() {
     }
 
-    public CreditCard(String type, Long number, LocalDate expirationDate, String billingAddress, User user) {
+    public CreditCard(String type, String ownerName, Long number, LocalDate expirationDate, String billingAddress, User user) {
         this.type = type;
+        this.ownerName = ownerName;
         this.number = number;
         this.expirationDate = expirationDate;
         this.billingAddress = billingAddress;
         this.user = user;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public Guest getGuest() {

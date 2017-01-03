@@ -3,6 +3,7 @@ package com.ward.entities;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 /**
  * Created by Troy on 12/6/16.
@@ -56,8 +57,8 @@ public class Guest {
     @ManyToOne
     Room room;
 
-    @ManyToOne
-    CreditCard creditCard;
+    @OneToMany
+    List<CreditCard> creditCards;
 
     @Column
     boolean isAssigned;
@@ -75,7 +76,7 @@ public class Guest {
     public Guest() {
     }
 
-    public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, Room room, CreditCard creditCard, boolean isAssigned, Boolean hasCreditCard, Boolean isInGroup, Group group) {
+    public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, Room room, List<CreditCard> creditCards, boolean isAssigned, Boolean hasCreditCard, Boolean isInGroup, Group group) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.numberOfGuests = numberOfGuests;
@@ -90,7 +91,7 @@ public class Guest {
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
         this.room = room;
-        this.creditCard = creditCard;
+        this.creditCards = creditCards;
         this.isAssigned = isAssigned;
         this.hasCreditCard = hasCreditCard;
         this.isInGroup = isInGroup;
@@ -147,12 +148,12 @@ public class Guest {
         this.hasCreditCard = hasCreditCard;
     }
 
-    public CreditCard getCreditCard() {
-        return creditCard;
+    public List<CreditCard> getCreditCards() {
+        return creditCards;
     }
 
-    public void setCreditCard(CreditCard creditCard) {
-        this.creditCard = creditCard;
+    public void setCreditCards(List<CreditCard> creditCards) {
+        this.creditCards = creditCards;
     }
 
     public boolean isAssigned() {
