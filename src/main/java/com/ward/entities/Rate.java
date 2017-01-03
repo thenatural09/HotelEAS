@@ -18,9 +18,6 @@ public class Rate {
     double base;
 
     @Column
-    double group;
-
-    @Column
     double friendsAndFamily;
 
     @Column
@@ -46,14 +43,6 @@ public class Rate {
 
     public void setBase(double base) {
         this.base = base;
-    }
-
-    public double getGroup() {
-        return group;
-    }
-
-    public void setGroup(double group) {
-        this.group = group;
     }
 
     public double getFriendsAndFamily() {

@@ -42,6 +42,7 @@
         <th>Check-Out Time</th>
         <th>Credit Card Info</th>
         <th>Group Info</th>
+        <th>Notes</th>
         <th></th>
         <th></th>
     </tr>
@@ -85,6 +86,10 @@
                 <button type="submit">Assign To Group</button>
             </form>
             {{/isInGroup}}</td>
+        <td><form action="/notes" method="get">
+            <input type="hidden" value="{{id}}" name="id"/>
+            <button type="submit">Guest Notes</button>
+        </form> </td>
         <td>
             <form action="/assign-to-room" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>

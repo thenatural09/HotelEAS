@@ -125,4 +125,27 @@ public class GuestController {
         }
         return "redirect:/unassigned-guests";
     }
+
+    @RequestMapping(path = "/notes", method = RequestMethod.GET)
+    public String getNotes(Model model,Integer id) {
+        Guest guest = guests.findOne(id);
+        model.addAttribute("guest",guest);
+        return "notes";
+    }
+
+    @RequestMapping(path = "/notes", method = RequestMethod.POST)
+    public String postNotes(HttpSession session, Integer id, String notes) throws Exception {
+        String username = (String) session.getAttribute("username");
+        User user = users.findFirstByUsername(username);
+        if (user == null) {
+            throw new Exception("Forbidden");
+        }
+        Guest guest = guests.findOne(id);
+        guest.setNotes(notes);
+        guests.save(guest);
+        if (guest.getRoom().getNumber() == 0) {
+            return "redirect:/unassigned-guests";
+        }
+        return "redirect:/guests";
+    }
 }
