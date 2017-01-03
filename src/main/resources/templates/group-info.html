@@ -5,6 +5,29 @@
     <title>Group Info</title>
 </head>
 <body>
-
+<form action="/go-to-guests" method="post">
+    <button type="submit">Assigned Guests</button>
+</form> <br>
+<form action="/go-to-unassigned-guests" method="post">
+    <button type="submit">Unassigned Guests</button>
+</form> <br>
+<table>
+    {{#group}}
+    <tr>
+        <th>Name</th>
+        <th>Event</th>
+        <th>Arrival Date</th>
+        <th>Departure Date</th>
+        <th>Guests</th>
+    </tr>
+    <tr>
+        <td>{{name}}</td>
+        <td>{{event}}</td>
+        <td>{{arrival}}</td>
+        <td>{{departure}}</td>
+        <td>{{#guests}}{{firstName}} {{lastName}}<br>{{/guests}}</td>
+    </tr>
+    {{/group}}
+</table>
 </body>
 </html>

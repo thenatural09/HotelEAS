@@ -69,7 +69,12 @@
             <form action="/create-group" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>
                 <button type="submit">Add To Group</button>
-            </form> {{/isInGroup}}</td>
+            </form>
+            <form action="/assign-to-group" method="get">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Assign To Group</button>
+            </form>
+            {{/isInGroup}}</td>
         <td>
             <form action="/assign-to-room" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>
