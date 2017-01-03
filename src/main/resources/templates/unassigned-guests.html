@@ -22,10 +22,16 @@
     <button type="submit">Assigned Guests</button>
 </form> <br>
 
+<form action="/unassigned-guests" method="get">
+    <input type="text" placeholder="First Name, Last Name or Email" name="search"/>
+    <button type="submit">Search</button>
+</form> <br>
+
 <table>
     <tr>
         <th>First Name</th>
         <th>Last Name</th>
+        <th>Room Number</th>
         <th>Number of Guests</th>
         <th>Address</th>
         <th>Phone Number</th>
@@ -35,7 +41,6 @@
         <th>Departure Date</th>
         <th>Check-In Time</th>
         <th>Check-Out Time</th>
-        <th>Room Number</th>
         <th>Credit Card Info</th>
         <th>Group Info</th>
         <th></th>
@@ -46,6 +51,7 @@
     <tr>
         <td>{{firstName}}</td>
         <td>{{lastName}}</td>
+        <td>{{room.number}}</td>
         <td>{{numberOfGuests}}</td>
         <td>{{homeAddress}}</td>
         <td>{{phoneNumber}}</td>
@@ -55,7 +61,6 @@
         <td>{{departure}}</td>
         <td>{{checkInTime}}</td>
         <td>{{checkOutTime}}</td>
-        <td>{{room.number}}</td>
         <td>{{#hasCreditCard}}<form action="/credit-card-info" method="get">
             <input type="hidden" value="{{id}}" name="id">
             <button type="submit">Credit Card Info</button>
@@ -74,7 +79,7 @@
             {{^isInGroup}}
             <form action="/create-group" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>
-                <button type="submit">Add To Group</button>
+                <button type="submit">Create Group</button>
             </form>
             <form action="/assign-to-group" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>

@@ -12,4 +12,5 @@ import java.util.List;
 public interface GuestRepository extends CrudRepository<Guest,Integer> {
     Guest findFirstByFirstNameAndLastName(String firstName,String lastName);
     List<Guest> findByGroup(Group group);
+    List<Guest> findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrEmailContainingIgnoreCase(String firstName,String lastName, String email);
 }

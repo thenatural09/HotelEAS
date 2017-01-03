@@ -70,20 +70,26 @@ public class GuestController {
     }
 
     @RequestMapping(path = "/guests", method = RequestMethod.GET)
-    public String guests(HttpSession session, Model model) {
+    public String guests(HttpSession session, Model model,String search) {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
         Iterable<Guest> guestList = guests.findAll();
+        if (search != null) {
+            guestList = guests.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrEmailContainingIgnoreCase(search,search,search);
+        }
         model.addAttribute("guests",guestList);
         model.addAttribute("user",user);
         return "guests";
     }
 
     @RequestMapping(path = "/unassigned-guests", method = RequestMethod.GET)
-    public String unassignedGuests(HttpSession session, Model model) {
+    public String unassignedGuests(HttpSession session, Model model,String search) {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
         Iterable<Guest> guestList = guests.findAll();
+        if (search != null) {
+            guestList = guests.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrEmailContainingIgnoreCase(search,search,search);
+        }
         model.addAttribute("guests",guestList);
         model.addAttribute("user",user);
         return "unassigned-guests";
