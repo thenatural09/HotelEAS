@@ -35,6 +35,9 @@ public class RoomController {
     @Autowired
     UserRepository users;
 
+    @Autowired
+    RateRepository rates;
+
     @RequestMapping(path = "/create-room", method = RequestMethod.POST)
     public String createRoom(HttpSession session, int number, double rate, int numberOfBeds, String type) throws Exception {
         String username = (String) session.getAttribute("username");

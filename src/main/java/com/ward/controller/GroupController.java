@@ -37,6 +37,9 @@ public class GroupController {
     @Autowired
     UserRepository users;
 
+    @Autowired
+    RateRepository rates;
+
     @RequestMapping(path = "/create-group", method = RequestMethod.POST)
     public String createGroup(Integer id, HttpSession session, String name, double discount, String event, String arrival, String departure) throws Exception {
         String username = (String) session.getAttribute("username");

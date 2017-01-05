@@ -43,6 +43,9 @@ public class HotelEasController {
     @Autowired
     UserRepository users;
 
+    @Autowired
+    RateRepository rates;
+
     @PostConstruct
     public void init() throws PasswordStorage.CannotPerformOperationException {
         User defaultUser = new User("Troy", PasswordStorage.createHash("pass123"));
@@ -129,6 +132,18 @@ public class HotelEasController {
         }
         ThirdParty thirdParty = new ThirdParty(name,hasPrePay,rate);
         thirdParties.save(thirdParty);
+        return "redirect:/";
+    }
+
+    @RequestMapping(path = "/create-rates", method = RequestMethod.POST)
+    public String postRates(HttpSession session,Double base,Double friendsAndFamily,Double aarp,Double employee,Double comp) throws Exception {
+        String username = (String) session.getAttribute("username");
+        User user = users.findFirstByUsername(username);
+        if (user == null) {
+            throw new Exception("Forbidden");
+        }
+        Rate rate = new Rate(base,friendsAndFamily,aarp,employee,comp);
+        rates.save(rate);
         return "redirect:/";
     }
 }

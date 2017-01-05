@@ -39,6 +39,9 @@ public class CreditCardController {
     @Autowired
     UserRepository users;
 
+    @Autowired
+    RateRepository rates;
+
     @RequestMapping(path = "/create-credit-card", method = RequestMethod.POST)
     public String createCreditCard(Integer id, HttpSession session, String type, String ownerName, Long number, String expirationDate, String billingAddress) throws Exception {
         String username = (String) session.getAttribute("username");

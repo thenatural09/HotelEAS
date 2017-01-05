@@ -37,6 +37,9 @@ public class GuestController {
     @Autowired
     UserRepository users;
 
+    @Autowired
+    RateRepository rates;
+
     @RequestMapping(path = "/create-guest", method = RequestMethod.POST)
     public String createGuest(HttpSession session, String firstName, String lastName, Integer numberOfGuests, String notes, String homeAddress, String phoneNumber, Integer numberOfStays, String arrival, String departure, String email, String checkInTime, String checkOutTime, Integer roomNumber) throws Exception {
         String username = (String) session.getAttribute("username");
