@@ -3,6 +3,7 @@ package com.ward.entities;
 import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Troy on 1/3/17.
@@ -28,6 +29,47 @@ public class Rate {
 
     @Column
     double comp;
+
+    @ManyToOne
+    Room room;
+
+    @OneToMany
+    List<Group> groupList;
+
+    @OneToMany
+    List<ThirdParty> thirdPartyList;
+
+    public Rate(double base, double friendsAndFamily, double aarp, double employee, double comp) {
+        this.base = base;
+        this.friendsAndFamily = friendsAndFamily;
+        this.aarp = aarp;
+        this.employee = employee;
+        this.comp = comp;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public List<Group> getGroupList() {
+        return groupList;
+    }
+
+    public void setGroupList(List<Group> groupList) {
+        this.groupList = groupList;
+    }
+
+    public List<ThirdParty> getThirdPartyList() {
+        return thirdPartyList;
+    }
+
+    public void setThirdPartyList(List<ThirdParty> thirdPartyList) {
+        this.thirdPartyList = thirdPartyList;
+    }
 
     public int getId() {
         return id;
