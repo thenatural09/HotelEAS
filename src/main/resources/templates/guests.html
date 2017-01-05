@@ -22,6 +22,10 @@
     <button type="submit">Unassigned Guests</button>
 </form> <br>
 
+<form action="/create-group" method="get">
+    <button type="submit">Create Group</button>
+</form> <br>
+
 <form action="/guests" method="get">
     <input type="text" placeholder="First Name, Last Name or Email" name="search"/>
     <button type="submit">Search</button>
@@ -77,10 +81,6 @@
             <button type="submit">{{group.name}}</button>
         </form> {{/isInGroup}}
         {{^isInGroup}}
-            <form action="/create-group" method="get">
-                <input type="hidden" value="{{id}}" name="id"/>
-                <button type="submit">Create Group</button>
-            </form>
             <form action="/assign-to-group" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>
                 <button type="submit">Assign To Group</button>

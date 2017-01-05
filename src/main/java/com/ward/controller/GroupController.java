@@ -44,22 +44,13 @@ public class GroupController {
         if (user == null) {
             throw new Exception("Forbidden");
         }
-        Guest g = guests.findOne(id);
         Group group = new Group(name,discount,event, LocalDate.parse(arrival),LocalDate.parse(departure),user);
-        ArrayList<Guest> guestArrayList = new ArrayList<>();
-        guestArrayList.add(g);
-        group.setGuestsInGroup(guestArrayList);
-        g.setGroup(group);
-        g.setInGroup(true);
         groups.save(group);
-        guests.save(g);
         return "redirect:/guests";
     }
 
     @RequestMapping(path = "/create-group",method = RequestMethod.GET)
     public String addToGroup(Model model, Integer id) {
-        Guest guest = guests.findOne(id);
-        model.addAttribute("guest",guest);
         return "create-group";
     }
 
