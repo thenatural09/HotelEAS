@@ -72,6 +72,9 @@ public class Guest {
     @ManyToOne
     Group group;
 
+    @Column
+    Double rate;
+
 
     public Guest() {
     }
@@ -113,6 +116,14 @@ public class Guest {
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
         this.room = room;
+    }
+
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
     }
 
     public Boolean getHasCreditCard() {
