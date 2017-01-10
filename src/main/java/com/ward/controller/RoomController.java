@@ -45,9 +45,10 @@ public class RoomController {
         if (user == null) {
             throw new Exception("Forbidden");
         }
-        Room room = new Room(number,rate,numberOfBeds,type,user);
+        Room room = new Room(number,numberOfBeds,type,user);
         room.setHasGuest(false);
         room.setClean(false);
+        room.setHasRates(false);
         rooms.save(room);
         return "redirect:/";
     }

@@ -39,6 +39,9 @@ public class Rate {
     @OneToMany
     List<ThirdParty> thirdPartyList;
 
+    public Rate() {
+    }
+
     public Rate(double base, double friendsAndFamily, double aarp, double employee, double comp) {
         this.base = base;
         this.friendsAndFamily = friendsAndFamily;

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Rates</title>
+</head>
+<body>
+<form action="/go-to-rooms" method="post">
+    <button type="submit">Room List</button>
+</form> <br>
+
+<form action="/go-to-guests" method="post">
+    <button type="submit">Assigned Guests</button>
+</form> <br>
+
+<form action="/go-to-unassigned-guests" method="post">
+    <button type="submit">Unassigned Guests</button>
+</form> <br>
+
+{{#room}}
+Room Number:{{number}} <br>
+<form action="/create-rates" method="post">
+    <input type="hidden" value="{{id}}" name="id"/>
+    <input type="number" placeholder="Base Rate" name="base"/>
+    <input type="number" placeholder="Friends And Family Rate" name="friendsAndFamily"/>
+    <input type="number" placeholder="AAA/AARP" name="aarp"/>
+    <input type="number" placeholder="Employee Rate" name="employee"/>
+    <input type="number" placeholder="Complimentary" name="comp"/>
+    <button type="submit">Create Rates</button>
+</form>
+{{/room}}
+</body>
+</html>

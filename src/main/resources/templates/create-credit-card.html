@@ -13,6 +13,7 @@
     <button type="submit">Unassigned Guests</button>
 </form> <br>
 {{#guest}}
+Guest Name:{{firstName}} {{lastName}} <br>
 <form action="/create-credit-card" method="post">
     <input type="hidden" value="{{id}}" name="id"/>
     <input type="text" placeholder="Type of Card" name="type"/>

@@ -53,12 +53,12 @@ public class HotelEasController {
             users.save(defaultUser);
         }
         ArrayList<Room> roomList = new ArrayList<>();
-        roomList.add(new Room(0,0,0,"Waiting To Be Assigned",defaultUser,false,true));
-        roomList.add(new Room(201,750,2,"Residential Suite",defaultUser,true,true));
-        roomList.add(new Room(301,500,1,"Suite",defaultUser,false,true));
-        roomList.add(new Room(321,1200,3,"Residential Suite",defaultUser,false,true));
-        roomList.add(new Room(231,250,1,"Studio",defaultUser,false,true));
-        roomList.add(new Room(531,300,1,"Signature Studio",defaultUser,false,true));
+        roomList.add(new Room(0,0,"Waiting To Be Assigned",defaultUser,false,true));
+        roomList.add(new Room(201,2,"Residential Suite",defaultUser,true,true));
+        roomList.add(new Room(301,1,"Suite",defaultUser,false,true));
+        roomList.add(new Room(321,3,"Residential Suite",defaultUser,false,true));
+        roomList.add(new Room(231,1,"Studio",defaultUser,false,true));
+        roomList.add(new Room(531,1,"Signature Studio",defaultUser,false,true));
         if(rooms.findFirstByNumber(0) == null) {
             rooms.save(roomList);
         }
@@ -136,14 +136,37 @@ public class HotelEasController {
     }
 
     @RequestMapping(path = "/create-rates", method = RequestMethod.POST)
-    public String postRates(HttpSession session,Double base,Double friendsAndFamily,Double aarp,Double employee,Double comp) throws Exception {
+    public String postRates(HttpSession session,Integer id,Double base,Double friendsAndFamily,Double aarp,Double employee,Double comp) throws Exception {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
         if (user == null) {
             throw new Exception("Forbidden");
         }
+        ArrayList<Rate> rateArrayList = new ArrayList<>();
+        Room room = rooms.findOne(id);
         Rate rate = new Rate(base,friendsAndFamily,aarp,employee,comp);
+        rateArrayList.add(rate);
+        rate.setRoom(room);
+        room.setRateList(rateArrayList);
+        room.setHasRates(true);
         rates.save(rate);
+        rooms.save(room);
         return "redirect:/";
+    }
+
+    @RequestMapping(path = "/create-rates", method = RequestMethod.GET)
+    public String getCreateRates(Model model,Integer id) {
+        Room room = rooms.findOne(id);
+        model.addAttribute("room",room);
+        return "create-rates";
+    }
+
+    @RequestMapping(path = "/rate-info",method = RequestMethod.GET)
+    public String getRateInfo(Model model,Integer id) {
+        Room room = rooms.findOne(id);
+        Iterable<Rate> rateList = rates.findByRoom(room);
+        model.addAttribute("room",room);
+        model.addAttribute("rates",rateList);
+        return "rate-info";
     }
 }

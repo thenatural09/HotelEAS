@@ -1,6 +1,7 @@
 package com.ward.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Troy on 12/6/16.
@@ -14,9 +15,6 @@ public class Room {
 
     @Column(nullable = false)
     int number;
-
-    @Column(nullable = false)
-    double rate;
 
     @Column(nullable = false)
     int numberOfBeds;
@@ -33,12 +31,18 @@ public class Room {
     @Column
     boolean isClean;
 
+    @OneToMany
+    List<Rate> rateList;
+
+    @Column
+    Boolean hasRates;
+
+
     public Room() {
     }
 
-    public Room(int number, double rate, int numberOfBeds, String type, User user, Boolean hasGuest, boolean isClean) {
+    public Room(int number, int numberOfBeds, String type, User user, Boolean hasGuest, boolean isClean) {
         this.number = number;
-        this.rate = rate;
         this.numberOfBeds = numberOfBeds;
         this.type = type;
         this.user = user;
@@ -46,12 +50,27 @@ public class Room {
         this.isClean = isClean;
     }
 
-    public Room(int number, double rate, int numberOfBeds, String type, User user) {
+    public Room(int number, int numberOfBeds, String type, User user) {
         this.number = number;
-        this.rate = rate;
         this.numberOfBeds = numberOfBeds;
         this.type = type;
         this.user = user;
+    }
+
+    public Boolean getHasRates() {
+        return hasRates;
+    }
+
+    public void setHasRates(Boolean hasRates) {
+        this.hasRates = hasRates;
+    }
+
+    public List<Rate> getRateList() {
+        return rateList;
+    }
+
+    public void setRateList(List<Rate> rateList) {
+        this.rateList = rateList;
     }
 
     public boolean isClean() {
@@ -92,14 +111,6 @@ public class Room {
 
     public void setNumber(int number) {
         this.number = number;
-    }
-
-    public double getRate() {
-        return rate;
-    }
-
-    public void setRate(double rate) {
-        this.rate = rate;
     }
 
     public int getNumberOfBeds() {

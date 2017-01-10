@@ -65,31 +65,40 @@
         <td>{{departure}}</td>
         <td>{{checkInTime}}</td>
         <td>{{checkOutTime}}</td>
-        <td>{{#hasCreditCard}}<form action="/credit-card-info" method="get">
-            <input type="hidden" value="{{id}}" name="id">
-            <button type="submit">Credit Card Info</button>
-        </form><form action="/create-credit-card" method="get">
+        <td>{{#hasCreditCard}}
+            <form action="/credit-card-info" method="get">
+                <input type="hidden" value="{{id}}" name="id">
+                <button type="submit">Credit Card Info</button>
+            </form>
+
+            <form action="/create-credit-card" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>
                 <button type="submit">Add Credit Card Info</button>
             </form>{{/hasCreditCard}}
-        {{^hasCreditCard}}<form action="/create-credit-card" method="get">
+        {{^hasCreditCard}}
+            <form action="/create-credit-card" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>
                 <button type="submit">Add Credit Card Info</button>
-            </form> {{/hasCreditCard}}</td>
-        <td>{{#isInGroup}}<form action="/group-info" method="get">
-            <input type="hidden" value="{{group.id}}" name="id"/>
-            <button type="submit">{{group.name}}</button>
-        </form> {{/isInGroup}}
+            </form> {{/hasCreditCard}}
+        </td>
+        <td>{{#isInGroup}}
+            <form action="/group-info" method="get">
+                <input type="hidden" value="{{group.id}}" name="id"/>
+                <button type="submit">{{group.name}}</button>
+            </form> {{/isInGroup}}
         {{^isInGroup}}
             <form action="/assign-to-group" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>
                 <button type="submit">Assign To Group</button>
             </form>
-            {{/isInGroup}}</td>
-        <td><form action="/notes" method="get">
-            <input type="hidden" value="{{id}}" name="id"/>
-            <button type="submit">Guest Notes</button>
-        </form> </td>
+            {{/isInGroup}}
+        </td>
+        <td>
+            <form action="/notes" method="get">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Guest Notes</button>
+            </form>
+        </td>
         <td>
             <form action="/assign-to-room" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>

@@ -13,5 +13,4 @@ public interface RoomRepository extends CrudRepository<Room,Integer> {
     Room findFirstByNumber(int number);
     List<Room> findByOrderByNumberDesc();
     List<Room> findByNumberOfBeds(Integer numberOfBeds);
-    List<Room> findByOrderByRateDesc(Double rate);
 }

@@ -60,19 +60,32 @@ Hello, welcome to a simple and easy to use front desk web application. Please si
 <table>
     <tr>
         <th>Room Number</th>
-        <th>Rate</th>
         <th>Number of Beds</th>
         <th>Room Type</th>
         <th>Status</th>
+        <th>Rates</th>
         <th></th>
     </tr>
     {{#rooms}}
     <tr>
         <td>{{number}}</td>
-        <td>{{rate}}</td>
         <td>{{numberOfBeds}}</td>
         <td>{{type}}</td>
         <td>{{#hasGuest}}Occupied{{/hasGuest}}{{^hasGuest}}{{#isClean}}Vacant Clean{{/isClean}}{{^isClean}}Vacant Dirty{{/isClean}}{{/hasGuest}}</td>
+        <td>
+            {{^hasRates}}
+            <form action="/create-rates" method="get">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Create Rates</button>
+            </form>
+            {{/hasRates}}
+            {{#hasRates}}
+            <form action="/rate-info" method="get">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Rate Info</button>
+            </form>
+            {{/hasRates}}
+        </td>
         <td>
             {{^hasGuest}}
             {{#isClean}}
