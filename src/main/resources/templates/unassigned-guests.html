@@ -37,6 +37,7 @@
         <th>First Name</th>
         <th>Last Name</th>
         <th>Room Number</th>
+        <th>Rate</th>
         <th>Number of Guests</th>
         <th>Address</th>
         <th>Phone Number</th>
@@ -50,14 +51,19 @@
         <th>Group Info</th>
         <th>Notes</th>
         <th></th>
-        <th></th>
     </tr>
     {{#guests}}
     {{^isAssigned}}
     <tr>
         <td>{{firstName}}</td>
         <td>{{lastName}}</td>
-        <td>{{room.number}}</td>
+        <td>
+            <form action="/assign-to-room" method="get">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Assign Room</button>
+            </form>
+        </td>
+        <td>Waiting To Be Assigned</td>
         <td>{{numberOfGuests}}</td>
         <td>{{homeAddress}}</td>
         <td>{{phoneNumber}}</td>
@@ -82,7 +88,8 @@
             <form action="/create-credit-card" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>
                 <button type="submit">Add Credit Card Info</button>
-            </form> {{/hasCreditCard}}</td>
+            </form> {{/hasCreditCard}}
+        </td>
         <td>
             {{#isInGroup}}
             <form action="/group-info" method="get">
@@ -96,15 +103,10 @@
             </form>
             {{/isInGroup}}
         </td>
-        <td><form action="/notes" method="get">
-            <input type="hidden" value="{{id}}" name="id"/>
-            <button type="submit">Guest Notes</button>
-        </form>
-        </td>
         <td>
-            <form action="/assign-to-room" method="get">
+            <form action="/notes" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>
-                <button type="submit">Assign Room</button>
+                <button type="submit">Guest Notes</button>
             </form>
         </td>
         <td>

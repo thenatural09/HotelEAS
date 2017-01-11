@@ -53,6 +53,7 @@ public class GuestController {
             guest.setAssigned(false);
             guest.setHasCreditCard(false);
             guest.setInGroup(false);
+            guest.setHasRate(false);
             guests.save(guest);
             return "redirect:/unassigned-guests";
         } else {
@@ -60,6 +61,7 @@ public class GuestController {
             guest.setAssigned(true);
             guest.setHasCreditCard(false);
             guest.setInGroup(false);
+            guest.setHasRate(false);
             guests.save(guest);
             return "redirect:/guests";
         }
@@ -178,9 +180,18 @@ public class GuestController {
         if (guest.getRate() == null) {
             throw new Exception("Room does not have assigned rates");
         }
+        guest.setHasRate(true);
+        guests.save(guest);
         if (guest.getRoom().getNumber() == 0) {
             return "redirect:/unassigned-guests";
         }
         return "redirect:/guests";
+    }
+
+    @RequestMapping(path = "/assign-rate", method = RequestMethod.GET)
+    public String assignRateGet(Model model,Integer id) {
+        Guest guest = guests.findOne(id);
+        model.addAttribute("guest", guest);
+        return "assign-rate";
     }
 }

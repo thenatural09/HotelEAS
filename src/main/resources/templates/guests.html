@@ -35,6 +35,7 @@
         <th>First Name</th>
         <th>Last Name</th>
         <th>Room Number</th>
+        <th>Rate</th>
         <th>Number of Guests</th>
         <th>Address</th>
         <th>Phone Number</th>
@@ -56,6 +57,15 @@
         <td>{{firstName}}</td>
         <td>{{lastName}}</td>
         <td>{{room.number}}</td>
+        <td>
+            {{^hasRate}}
+            <form action="/assign-rate" method="get">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Assign Rate</button>
+            </form>
+            {{/hasRate}}
+            {{#hasRate}}{{rate}}{{/hasRate}}
+        </td>
         <td>{{numberOfGuests}}</td>
         <td>{{homeAddress}}</td>
         <td>{{phoneNumber}}</td>

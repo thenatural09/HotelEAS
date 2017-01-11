@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign Rate</title>
+</head>
+<body>
+{{#guest}}
+Guest Name:{{firstName}} {{lastName}}<br>
+Room Number:{{room.number}}<br>
+Base Rate = base <br>
+Friends and Family Rate = friends,family or friend <br>
+AAA/AARP = aaa or aarp <br>
+Employee Rate = employee <br>
+Complimentary = comp <br>
+
+<form action="/assign-rate" method="post">
+    <input type="hidden" value="{{id}}" name="id"/>
+    <input type="text" placeholder="Type of rate for guest" name="type"/>
+    <button type="submit">Assign Rate</button>
+</form>
+{{/guest}}
+</body>
+</html>

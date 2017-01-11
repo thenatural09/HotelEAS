@@ -75,6 +75,9 @@ public class Guest {
     @Column
     Double rate;
 
+    @Column
+    Boolean hasRate;
+
 
     public Guest() {
     }
@@ -116,6 +119,14 @@ public class Guest {
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
         this.room = room;
+    }
+
+    public Boolean getHasRate() {
+        return hasRate;
+    }
+
+    public void setHasRate(Boolean hasRate) {
+        this.hasRate = hasRate;
     }
 
     public Double getRate() {
