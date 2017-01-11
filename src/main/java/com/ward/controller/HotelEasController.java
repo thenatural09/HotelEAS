@@ -87,7 +87,7 @@ public class HotelEasController {
         model.addAttribute("rooms",roomList);
         model.addAttribute("guests",guestList);
         model.addAttribute("user",user);
-        return "home";
+        return "rooms";
     }
 
     @RequestMapping(path = "/signup", method = RequestMethod.POST)

@@ -71,7 +71,7 @@ public class GuestController {
     public String getGuest(Model model) {
         Iterable<Room> roomList = rooms.findAll();
         model.addAttribute("rooms",roomList);
-        return "guest";
+        return "create-guest";
     }
 
     @RequestMapping(path = "/guests", method = RequestMethod.GET)

@@ -55,7 +55,7 @@ public class RoomController {
 
     @RequestMapping(path = "/create-room", method = RequestMethod.GET)
     public String getRoom(Model model) {
-        return "room";
+        return "create-room";
     }
 
     @RequestMapping(path = "/assign-to-room",method = RequestMethod.POST)
@@ -91,7 +91,7 @@ public class RoomController {
         Iterable<Room> roomList = rooms.findAll();
         model.addAttribute("rooms",roomList);
         model.addAttribute("guest",guest);
-        return "assign";
+        return "assign-to-room";
     }
 
     @RequestMapping(path = "/set-is-clean",method = RequestMethod.POST)
