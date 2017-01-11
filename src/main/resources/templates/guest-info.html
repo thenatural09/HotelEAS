@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guest Info</title>
+</head>
+<body>
+<form action="/go-to-guests" method="post">
+    <button type="submit">Assigned Guests</button>
+</form> <br>
+
+<form action="/go-to-unassigned-guests" method="post">
+    <button type="submit">Unassigned Guests</button>
+</form> <br>
+
+{{#guest}}
+Guest Name:{{firstName}} {{lastName}}<br>
+Room Number:{{room.number}}<br>
+Rate:{{rate}}<br>
+Email:{{email}}<br>
+Phone Number:{{phoneNumber}}<br>
+Home Address:{{homeAddress}}<br>
+Number of Stays:{{numberOfStays}}<br>
+Date of Arrival:{{arrival}}<br>
+Date of Departure:{{departure}}<br>
+Time of Check-In:{{checkInTime}}<br>
+Time of Check-Out:{{checkOutTime}}<br>
+{{/guest}}
+</body>
+</html>

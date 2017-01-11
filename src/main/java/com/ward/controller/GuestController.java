@@ -194,4 +194,18 @@ public class GuestController {
         model.addAttribute("guest", guest);
         return "assign-rate";
     }
+
+    @RequestMapping(path = "/guest-info", method = RequestMethod.GET)
+    public String guestInfo(Model model,Integer id) {
+        Guest guest = guests.findOne(id);
+        model.addAttribute("guest",guest);
+        return "guest-info";
+    }
+
+    @RequestMapping(path = "/unassigned-guest-info", method = RequestMethod.GET)
+    public String notAssignedGuestInfo(Model model, Integer id) {
+        Guest guest = guests.findOne(id);
+        model.addAttribute("guest",guest);
+        return "unassigned-guest-info";
+    }
 }

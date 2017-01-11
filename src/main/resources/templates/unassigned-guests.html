@@ -38,18 +38,12 @@
         <th>Last Name</th>
         <th>Room Number</th>
         <th>Rate</th>
-        <th>Number of Guests</th>
-        <th>Address</th>
-        <th>Phone Number</th>
-        <th>Number of Stays</th>
-        <th>Email</th>
         <th>Arrival Date</th>
         <th>Departure Date</th>
-        <th>Check-In Time</th>
-        <th>Check-Out Time</th>
         <th>Credit Card Info</th>
         <th>Group Info</th>
         <th>Notes</th>
+        <th></th>
         <th></th>
     </tr>
     {{#guests}}
@@ -64,15 +58,8 @@
             </form>
         </td>
         <td>Waiting To Be Assigned</td>
-        <td>{{numberOfGuests}}</td>
-        <td>{{homeAddress}}</td>
-        <td>{{phoneNumber}}</td>
-        <td>{{numberOfStays}}</td>
-        <td>{{email}}</td>
         <td>{{arrival}}</td>
         <td>{{departure}}</td>
-        <td>{{checkInTime}}</td>
-        <td>{{checkOutTime}}</td>
         <td>{{#hasCreditCard}}
             <form action="/credit-card-info" method="get">
                 <input type="hidden" value="{{id}}" name="id">
@@ -107,6 +94,12 @@
             <form action="/notes" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>
                 <button type="submit">Guest Notes</button>
+            </form>
+        </td>
+        <td>
+            <form action="/unassigned-guest-info" method="get">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Guest Info</button>
             </form>
         </td>
         <td>

@@ -36,15 +36,8 @@
         <th>Last Name</th>
         <th>Room Number</th>
         <th>Rate</th>
-        <th>Number of Guests</th>
-        <th>Address</th>
-        <th>Phone Number</th>
-        <th>Number of Stays</th>
-        <th>Email</th>
         <th>Arrival Date</th>
         <th>Departure Date</th>
-        <th>Check-In Time</th>
-        <th>Check-Out Time</th>
         <th>Credit Card Info</th>
         <th>Group Info</th>
         <th>Notes</th>
@@ -56,7 +49,12 @@
     <tr>
         <td>{{firstName}}</td>
         <td>{{lastName}}</td>
-        <td>{{room.number}}</td>
+        <td>{{room.number}}
+            <form action="/assign-to-room" method="get">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Change Room</button>
+            </form>
+        </td>
         <td>
             {{^hasRate}}
             <form action="/assign-rate" method="get">
@@ -64,17 +62,15 @@
                 <button type="submit">Assign Rate</button>
             </form>
             {{/hasRate}}
-            {{#hasRate}}{{rate}}{{/hasRate}}
+            {{#hasRate}}{{rate}}
+            <form action="/assign-rate" method="get">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Edit Rate</button>
+            </form>
+            {{/hasRate}}
         </td>
-        <td>{{numberOfGuests}}</td>
-        <td>{{homeAddress}}</td>
-        <td>{{phoneNumber}}</td>
-        <td>{{numberOfStays}}</td>
-        <td>{{email}}</td>
         <td>{{arrival}}</td>
         <td>{{departure}}</td>
-        <td>{{checkInTime}}</td>
-        <td>{{checkOutTime}}</td>
         <td>{{#hasCreditCard}}
             <form action="/credit-card-info" method="get">
                 <input type="hidden" value="{{id}}" name="id">
@@ -110,9 +106,9 @@
             </form>
         </td>
         <td>
-            <form action="/assign-to-room" method="get">
+            <form action="/guest-info" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>
-                <button type="submit">Change Room</button>
+                <button type="submit">Guest Info</button>
             </form>
         </td>
         <td>
