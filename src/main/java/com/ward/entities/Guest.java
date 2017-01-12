@@ -78,11 +78,15 @@ public class Guest {
     @Column
     Boolean hasRate;
 
+    @Column
+    Boolean hasNotes;
+
+
 
     public Guest() {
     }
 
-    public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, Room room, List<CreditCard> creditCards, boolean isAssigned, Boolean hasCreditCard, Boolean isInGroup, Group group) {
+    public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, Room room, List<CreditCard> creditCards, boolean isAssigned, Boolean hasCreditCard, Boolean isInGroup, Group group,Boolean hasNotes) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.numberOfGuests = numberOfGuests;
@@ -102,6 +106,7 @@ public class Guest {
         this.hasCreditCard = hasCreditCard;
         this.isInGroup = isInGroup;
         this.group = group;
+        this.hasNotes = hasNotes;
     }
 
     public Guest(String firstName, String lastName, int numberOfGuests, String notes, String homeAddress, String phoneNumber, int numberOfStays, User user, LocalDate arrival, LocalDate departure, String email, LocalTime checkInTime, LocalTime checkOutTime, Room room) {
@@ -123,6 +128,14 @@ public class Guest {
 
     public Boolean getHasRate() {
         return hasRate;
+    }
+
+    public Boolean getHasNotes() {
+        return hasNotes;
+    }
+
+    public void setHasNotes(Boolean hasNotes) {
+        this.hasNotes = hasNotes;
     }
 
     public void setHasRate(Boolean hasRate) {

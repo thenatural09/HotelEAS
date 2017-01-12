@@ -63,10 +63,10 @@ public class HotelEasController {
             rooms.save(roomList);
         }
         ArrayList<Guest> guestList = new ArrayList<>();
-        guestList.add(new Guest("Troy","Ward",2,"Needy","93 Smith St","6823513855",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-25"),"tward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(201),null,true,false,false,null));
-        guestList.add(new Guest("Bob","Ward",3,"Helpful","83 Smithfield Rd","9389200202",4,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-28"),"bward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false,false,null));
-        guestList.add(new Guest("Paul","Ward",4,"Might Be Late","34 Orange St","3839292929",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-26"),"pward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false,false,null));
-        guestList.add(new Guest("Carl","Ward",1,"Needy","89 Smith St","238238293023",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-27"),"cward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false,false,null));
+        guestList.add(new Guest("Troy","Ward",2,"Needy","93 Smith St","6823513855",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-25"),"tward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(201),null,true,false,false,null,true));
+        guestList.add(new Guest("Bob","Ward",3,"Helpful","83 Smithfield Rd","9389200202",4,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-28"),"bward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false,false,null,true));
+        guestList.add(new Guest("Paul","Ward",4,"Might Be Late","34 Orange St","3839292929",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-26"),"pward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false,false,null,true));
+        guestList.add(new Guest("Carl","Ward",1,"Needy","89 Smith St","238238293023",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-27"),"cward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false,false,null,true));
         if (guests.findFirstByFirstNameAndLastName("Troy","Ward") == null) {
             guests.save(guestList);
         }
@@ -133,40 +133,5 @@ public class HotelEasController {
         ThirdParty thirdParty = new ThirdParty(name,hasPrePay,rate);
         thirdParties.save(thirdParty);
         return "redirect:/";
-    }
-
-    @RequestMapping(path = "/create-rates", method = RequestMethod.POST)
-    public String postRates(HttpSession session,Integer id,Double base,Double friendsAndFamily,Double aarp,Double employee,Double comp) throws Exception {
-        String username = (String) session.getAttribute("username");
-        User user = users.findFirstByUsername(username);
-        if (user == null) {
-            throw new Exception("Forbidden");
-        }
-        ArrayList<Rate> rateArrayList = new ArrayList<>();
-        Room room = rooms.findOne(id);
-        Rate rate = new Rate(base,friendsAndFamily,aarp,employee,comp);
-        rateArrayList.add(rate);
-        rate.setRoom(room);
-        room.setRateList(rateArrayList);
-        room.setHasRates(true);
-        rates.save(rate);
-        rooms.save(room);
-        return "redirect:/";
-    }
-
-    @RequestMapping(path = "/create-rates", method = RequestMethod.GET)
-    public String getCreateRates(Model model,Integer id) {
-        Room room = rooms.findOne(id);
-        model.addAttribute("room",room);
-        return "create-rates";
-    }
-
-    @RequestMapping(path = "/rate-info",method = RequestMethod.GET)
-    public String getRateInfo(Model model,Integer id) {
-        Room room = rooms.findOne(id);
-        Iterable<Rate> rateList = rates.findByRoom(room);
-        model.addAttribute("room",room);
-        model.addAttribute("rates",rateList);
-        return "rate-info";
     }
 }

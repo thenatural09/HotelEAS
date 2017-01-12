@@ -32,6 +32,7 @@
 </form> <br>
 <table>
     <tr>
+        <th></th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Room Number</th>
@@ -42,11 +43,16 @@
         <th>Group Info</th>
         <th>Notes</th>
         <th></th>
-        <th></th>
     </tr>
     {{#guests}}
     {{#isAssigned}}
     <tr>
+        <td>
+            <form action="/guest-info" method="get">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Guest Info</button>
+            </form>
+        </td>
         <td>{{firstName}}</td>
         <td>{{lastName}}</td>
         <td>{{room.number}}
@@ -103,12 +109,6 @@
             <form action="/notes" method="get">
                 <input type="hidden" value="{{id}}" name="id"/>
                 <button type="submit">Guest Notes</button>
-            </form>
-        </td>
-        <td>
-            <form action="/guest-info" method="get">
-                <input type="hidden" value="{{id}}" name="id"/>
-                <button type="submit">Guest Info</button>
             </form>
         </td>
         <td>

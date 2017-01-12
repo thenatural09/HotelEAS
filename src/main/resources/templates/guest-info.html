@@ -16,7 +16,7 @@
 {{#guest}}
 Guest Name:{{firstName}} {{lastName}}<br>
 Room Number:{{room.number}}<br>
-Rate:{{rate}}<br>
+{{#hasRate}}Rate:{{rate}}{{/hasRate}}{{^hasRate}}Rate:No Assigned Rate{{/hasRate}}<br>
 Email:{{email}}<br>
 Phone Number:{{phoneNumber}}<br>
 Home Address:{{homeAddress}}<br>

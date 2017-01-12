@@ -17,7 +17,8 @@ Guest Name:{{firstName}} {{lastName}} <br>
 Room Number:{{room.number}}<br>
 
 Notes:
-{{notes}}
+{{#hasNotes}}{{notes}}{{/hasNotes}}
+{{^hasNotes}}None{{/hasNotes}}
 <br>
 <form action="notes" method="post">
     <input type="hidden" value="{{id}}" name="id"/>

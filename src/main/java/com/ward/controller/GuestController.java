@@ -54,6 +54,7 @@ public class GuestController {
             guest.setHasCreditCard(false);
             guest.setInGroup(false);
             guest.setHasRate(false);
+            guest.setHasNotes(false);
             guests.save(guest);
             return "redirect:/unassigned-guests";
         } else {
@@ -62,6 +63,7 @@ public class GuestController {
             guest.setHasCreditCard(false);
             guest.setInGroup(false);
             guest.setHasRate(false);
+            guest.setHasNotes(false);
             guests.save(guest);
             return "redirect:/guests";
         }
@@ -147,6 +149,7 @@ public class GuestController {
         }
         Guest guest = guests.findOne(id);
         guest.setNotes(notes);
+        guest.setHasNotes(true);
         guests.save(guest);
         if (guest.getRoom().getNumber() == 0) {
             return "redirect:/unassigned-guests";

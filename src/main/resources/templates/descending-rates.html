@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Descending Rates</title>
+</head>
+<body>
+<form action="/go-to-guests" method="post">
+    <button type="submit">Assigned Guests</button>
+</form> <br>
+
+<form action="/go-to-unassigned-guests" method="post">
+    <button type="submit">Unassigned Guests</button>
+</form> <br>
+
+<form action="/go-to-rooms" method="post">
+    <button type="submit">Room List</button>
+</form> <br>
+
+<form action="/rates" method="get">
+    <button type="submit">Rates</button>
+</form><br>
+
+<table>
+    <tr>
+        <th>Room Number</th>
+        <th>Base Rate</th>
+        <th>AAA/AARP</th>
+        <th>Friends and Family</th>
+        <th>Employee</th>
+    </tr>
+    {{#rates}}
+    <tr>
+        <td>{{room.number}}</td>
+        <td>{{base}}</td>
+        <td>{{aarp}}</td>
+        <td>{{friendsAndFamily}}</td>
+        <td>{{employee}}</td>
+    </tr>
+    {{/rates}}
+</table>
+</body>
+</html>
