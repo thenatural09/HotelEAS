@@ -13,4 +13,5 @@ public interface RateRepository extends CrudRepository<Rate,Integer> {
     List<Rate> findByRoom(Room room);
     Rate findFirstByRoom(Room room);
     List<Rate> findByOrderByBaseDesc();
+    List<Rate> findByOrderByBaseAsc();
 }

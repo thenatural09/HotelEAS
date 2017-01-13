@@ -97,4 +97,16 @@ public class RateController {
         model.addAttribute("rates",rateList);
         return "descending-rates";
     }
+
+    @RequestMapping(path = "/ascending-rates", method = RequestMethod.GET)
+    public String ascRates(Model model,HttpSession session) throws Exception {
+        String username = (String) session.getAttribute("username");
+        User user = users.findFirstByUsername(username);
+        if (user == null) {
+            throw new Exception("Forbidden");
+        }
+        Iterable<Rate> rateList = rates.findByOrderByBaseAsc();
+        model.addAttribute("rates",rateList);
+        return "ascending-rates";
+    }
 }
