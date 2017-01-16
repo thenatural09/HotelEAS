@@ -4,6 +4,7 @@ import com.ward.entities.Group;
 import com.ward.entities.Guest;
 import org.springframework.data.repository.CrudRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -13,4 +14,5 @@ public interface GuestRepository extends CrudRepository<Guest,Integer> {
     Guest findFirstByFirstNameAndLastName(String firstName,String lastName);
     List<Guest> findByGroup(Group group);
     List<Guest> findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrEmailContainingIgnoreCase(String firstName,String lastName, String email);
+    List<Guest> findByArrival(LocalDate arrival);
 }
