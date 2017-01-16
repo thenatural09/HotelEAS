@@ -77,7 +77,7 @@ public class GuestController {
     }
 
     @RequestMapping(path = "/guests", method = RequestMethod.GET)
-    public String guests(HttpSession session, Model model,String search,String date) {
+    public String guests(HttpSession session, Model model,String search,String date,String newDate) {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
         Iterable<Guest> guestList = guests.findAll();
@@ -87,6 +87,9 @@ public class GuestController {
         if (date != null) {
             LocalDate today = LocalDate.now();
             guestList = guests.findByArrival(today);
+        }
+        if (newDate != null) {
+            guestList = guests.findByArrival(LocalDate.parse(newDate));
         }
         model.addAttribute("guests",guestList);
         model.addAttribute("user",user);
