@@ -94,12 +94,16 @@ public class GuestController {
     }
 
     @RequestMapping(path = "/unassigned-guests", method = RequestMethod.GET)
-    public String unassignedGuests(HttpSession session, Model model,String search) {
+    public String unassignedGuests(HttpSession session, Model model,String search,String date) {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
         Iterable<Guest> guestList = guests.findAll();
         if (search != null) {
             guestList = guests.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrEmailContainingIgnoreCase(search,search,search);
+        }
+        if (date != null) {
+            LocalDate today = LocalDate.now();
+            guestList = guests.findByArrival(today);
         }
         model.addAttribute("guests",guestList);
         model.addAttribute("user",user);
