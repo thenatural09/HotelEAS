@@ -5,23 +5,39 @@
     <title>Assign Rate</title>
 </head>
 <body>
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            <form action="/go-to-guests" method="post">
+                <button type="submit">Assigned Guests</button>
+            </form>
+        </td>
+        <td>
+            <form action="/go-to-unassigned-guests" method="post">
+                <button type="submit">Unassigned Guests</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<br>
+
 {{#guest}}
+{{#room}}
+{{#rates}}
 Guest Name:{{firstName}} {{lastName}}<br>
 Room Number:{{room.number}}<br>
-Base Rate = base <br>
-Friends and Family Rate = friends,family or friend <br>
-AAA/AARP = aaa or aarp <br>
-Employee Rate = employee <br>
+Base Rate = base ${{base}} <br>
+Friends and Family Rate = friends,family or friend ${{friendsAndFamily}}<br>
+AAA/AARP = aaa or aarp ${{aarp}} <br>
+Employee Rate = employee ${{employee}} <br>
 Complimentary = comp <br>
-
-<form action="/go-to-guests" method="post">
-    <button type="submit">Assigned Guests</button>
-</form> <br>
-
-<form action="/go-to-unassigned-guests" method="post">
-    <button type="submit">Unassigned Guests</button>
-</form> <br>
-
+<br>
+{{/rates}}
+{{/room}}
 <form action="/assign-rate" method="post">
     <input type="hidden" value="{{id}}" name="id"/>
     <input type="text" placeholder="Type of rate for guest" name="type"/>

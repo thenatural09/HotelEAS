@@ -1,5 +1,6 @@
 package com.ward.services;
 
+import com.ward.entities.Guest;
 import com.ward.entities.Room;
 import org.springframework.data.repository.CrudRepository;
 

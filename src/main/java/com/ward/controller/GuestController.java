@@ -1,6 +1,7 @@
 package com.ward.controller;
 
 import com.ward.entities.Guest;
+import com.ward.entities.Rate;
 import com.ward.entities.Room;
 import com.ward.entities.User;
 import com.ward.services.*;
@@ -214,7 +215,11 @@ public class GuestController {
     @RequestMapping(path = "/assign-rate", method = RequestMethod.GET)
     public String assignRateGet(Model model,Integer id) {
         Guest guest = guests.findOne(id);
+        Room room = rooms.findFirstByNumber(guest.getRoom().getNumber());
+        Iterable<Rate> rateList = rates.findByRoom(room);
         model.addAttribute("guest", guest);
+        model.addAttribute("room",room);
+        model.addAttribute("rates",rateList);
         return "assign-rate";
     }
 
