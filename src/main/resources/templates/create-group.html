@@ -5,19 +5,33 @@
     <title>Add To Group</title>
 </head>
 <body>
-<form action="/go-to-guests" method="post">
-    <button type="submit">Assigned Guests</button>
-</form> <br>
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            <form action="/go-to-guests" method="post">
+                <button type="submit">Assigned Guests</button>
+            </form>
+        </td>
+        <td>
+            <form action="/go-to-unassigned-guests" method="post">
+                <button type="submit">Unassigned Guests</button>
+            </form>
+        </td>
+    </tr>
+</table>
 
-<form action="/go-to-unassigned-guests" method="post">
-    <button type="submit">Unassigned Guests</button>
-</form> <br>
+<br>
+
 <form action="/create-group" method="post">
-    <input type="text" placeholder="Group name" name="name"/>
-    <input type="number" placeholder="Group Rate" name="discount"/>
-    <input type="text" placeholder="Event" name="event"/>
-    <input type="date" placeholder="Arrival Date" name="arrival"/>
-    <input type="date" placeholder="Depature Date" name="departure"/>
+    <input type="text" placeholder="Group name" name="name"/><br>
+    <input type="number" placeholder="Group Rate" name="discount"/><br>
+    <input type="text" placeholder="Event" name="event"/><br>
+    Arrival Date:<input type="date" placeholder="Arrival Date" name="arrival"/><br>
+    Departure Date:<input type="date" placeholder="Depature Date" name="departure"/><br>
     <button type="submit">Create Group</button>
 </form>
 </body>

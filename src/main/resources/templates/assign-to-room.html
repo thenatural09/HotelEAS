@@ -4,16 +4,29 @@
     <meta charset="UTF-8">
     <title>Assign Room</title>
 </head>
-{{#guest}}
 <body>
-<form action="/go-to-guests" method="post">
-    <button type="submit">Assigned Guests</button>
-</form> <br>
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            <form action="/go-to-guests" method="post">
+                <button type="submit">Assigned Guests</button>
+            </form>
+        </td>
+        <td>
+            <form action="/go-to-unassigned-guests" method="post">
+                <button type="submit">Unassigned Guests</button>
+            </form>
+        </td>
+    </tr>
+</table>
 
-<form action="/go-to-unassigned-guests" method="post">
-    <button type="submit">Unassigned Guests</button>
-</form> <br>
+<br>
 
+{{#guest}}
 Guest Name:{{firstName}} {{lastName}}<br>
 {{#isAssigned}}Room Number:{{room.number}}{{/isAssigned}}
 {{^isAssigned}}Waiting To Be Assigned{{/isAssigned}}
