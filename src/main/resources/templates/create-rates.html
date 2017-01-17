@@ -5,27 +5,42 @@
     <title>Create Rates</title>
 </head>
 <body>
-<form action="/go-to-rooms" method="post">
-    <button type="submit">Room List</button>
-</form> <br>
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            <form action="/go-to-rooms" method="post">
+                <button type="submit">Room List</button>
+            </form>
+        </td>
+        <td>
+            <form action="/go-to-guests" method="post">
+                <button type="submit">Assigned Guests</button>
+            </form>
+        </td>
+        <td>
+            <form action="/go-to-unassigned-guests" method="post">
+                <button type="submit">Unassigned Guests</button>
+            </form>
+        </td>
+    </tr>
+</table>
 
-<form action="/go-to-guests" method="post">
-    <button type="submit">Assigned Guests</button>
-</form> <br>
-
-<form action="/go-to-unassigned-guests" method="post">
-    <button type="submit">Unassigned Guests</button>
-</form> <br>
+<br>
 
 {{#room}}
 Room Number:{{number}} <br>
 <form action="/create-rates" method="post">
     <input type="hidden" value="{{id}}" name="id"/>
-    <input type="number" placeholder="Base Rate" name="base"/>
-    <input type="number" placeholder="Friends And Family Rate" name="friendsAndFamily"/>
-    <input type="number" placeholder="AAA/AARP" name="aarp"/>
-    <input type="number" placeholder="Employee Rate" name="employee"/>
-    <input type="number" placeholder="Complimentary" name="comp"/>
+    <input type="number" placeholder="Base Rate" name="base"/><br>
+    <input type="number" placeholder="Friends And Family Rate" name="friendsAndFamily"/><br>
+    <input type="number" placeholder="AAA/AARP" name="aarp"/><br>
+    <input type="number" placeholder="Employee Rate" name="employee"/><br>
+    <input type="number" placeholder="Complimentary" name="comp"/><br>
     <button type="submit">Create Rates</button>
 </form>
 {{/room}}
