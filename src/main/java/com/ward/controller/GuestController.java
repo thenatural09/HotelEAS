@@ -80,16 +80,19 @@ public class GuestController {
     public String guests(HttpSession session, Model model,String search,String date,String newDate) {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
-        Iterable<Guest> guestList = guests.findAll();
+        Iterable<Guest> guestList;
         if (search != null) {
             guestList = guests.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrEmailContainingIgnoreCase(search,search,search);
         }
-        if (date != null) {
+        else if (date != null) {
             LocalDate today = LocalDate.now();
             guestList = guests.findByArrival(today);
         }
-        if (newDate != null) {
+        else if (newDate != null) {
             guestList = guests.findByArrival(LocalDate.parse(newDate));
+        } else {
+            LocalDate today = LocalDate.now();
+            guestList = guests.findByArrival(today);
         }
         model.addAttribute("guests",guestList);
         model.addAttribute("user",user);
@@ -100,16 +103,19 @@ public class GuestController {
     public String unassignedGuests(HttpSession session, Model model,String search,String date,String newDate) {
         String username = (String) session.getAttribute("username");
         User user = users.findFirstByUsername(username);
-        Iterable<Guest> guestList = guests.findAll();
+        Iterable<Guest> guestList;
         if (search != null) {
             guestList = guests.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrEmailContainingIgnoreCase(search,search,search);
         }
-        if (date != null) {
+        else if (date != null) {
             LocalDate today = LocalDate.now();
             guestList = guests.findByArrival(today);
         }
-        if (newDate != null) {
+        else if (newDate != null) {
             guestList = guests.findByArrival(LocalDate.parse(newDate));
+        } else {
+            LocalDate today = LocalDate.now();
+            guestList = guests.findByArrival(today);
         }
         model.addAttribute("guests",guestList);
         model.addAttribute("user",user);
