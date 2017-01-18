@@ -5,41 +5,73 @@
     <title>Guest List</title>
 </head>
 <body>
-{{#user}}
-<form action="/logout" method="post">
-    <button type="submit">Logout</button>
-</form> <br>
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            <form action="/logout" method="post">
+                <button type="submit">Logout</button>
+            </form>
+        </td>
+        <td>
+            <form action="/create-guest" method="get">
+                <button type="submit">Create Guest</button>
+            </form>
+        </td>
+        <td>
+            <form action="/go-to-rooms" method="post">
+                <button type="submit">Room List</button>
+            </form>
+        </td>
+        <td>
+            <form action="/go-to-unassigned-guests" method="post">
+                <button type="submit">Unassigned Guests</button>
+            </form>
+        </td>
+        <td>
+            <form action="/create-group" method="get">
+                <button type="submit">Create Group</button>
+            </form>
+        </td>
+    </tr>
+</table>
 
-<form action="/create-guest" method="get">
-    <button type="submit">Create Guest</button>
-</form> <br>
+<br>
 
-<form action="/go-to-rooms" method="post">
-    <button type="submit">Room List</button>
-</form> <br>
-
-<form action="/go-to-unassigned-guests" method="post">
-    <button type="submit">Unassigned Guests</button>
-</form> <br>
-
-<form action="/create-group" method="get">
-    <button type="submit">Create Group</button>
-</form> <br>
-
-<form action="/guests" method="get">
-    <input type="text" placeholder="First Name, Last Name or Email" name="search"/>
-    <button type="submit">Search</button>
-</form> <br>
-
-<form action="/guests" method="get">
-    <input type="hidden" value="today" name="date"/>
-    <button type="submit">Today</button>
-</form> <br>
-
-<form action="/guests" method="get">
-    <input type="date" name="newDate"/>
-    <button type="submit">Look at Date</button>
-</form> <br>
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            <form action="/guests" method="get">
+                <input type="text" placeholder="First Name, Last Name or Email" name="search"/>
+                <button type="submit">Search</button>
+            </form>
+        </td>
+        <td>
+            <form action="/guests" method="get">
+                <input type="hidden" value="today" name="date"/>
+                <button type="submit">Today</button>
+            </form>
+        </td>
+        <td>
+            <form action="/guests" method="get">
+                <input type="date" name="newDate"/>
+                <button type="submit">Look at Date</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<br>
 
 <table>
     <tr>
@@ -132,6 +164,5 @@
     {{/isAssigned}}
     {{/guests}}
 </table>
-{{/user}}
 </body>
 </html>

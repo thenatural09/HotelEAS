@@ -5,20 +5,34 @@
     <title>Edit Credit Card Info</title>
 </head>
 <body>
-<form action="/go-to-guests" method="post">
-    <button type="submit">Assigned Guests</button>
-</form> <br>
-<form action="/go-to-unassigned-guests" method="post">
-    <button type="submit">Unassigned Guests</button>
-</form> <br>
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            <form action="/go-to-guests" method="post">
+                <button type="submit">Assigned Guests</button>
+            </form>
+        </td>
+        <td>
+            <form action="/go-to-unassigned-guests" method="post">
+                <button type="submit">Unassigned Guests</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<br>
 {{#creditCard}}
 <form action="/edit-credit-card-info" method="post">
     <input type="hidden" value="{{id}}" name="id"/>
-    <input type="text" placeholder="{{type}}" name="type"/>
-    <input type="text" placeholder="{{ownerName}}" name="ownerName"/>
-    <input type="number" placeholder="{{number}}" name="number"/>
-    <input type="date" placeholder="{{expirationDate}}" name="expirationDate"/>
-    <input type="text" placeholder="{{billingAddress}}" name="billingAddress"/>
+    Type:<input type="text" placeholder="{{type}}" name="type"/><br>
+    Name of Owner:<input type="text" placeholder="{{ownerName}}" name="ownerName"/><br>
+    Number:<input type="number" placeholder="{{number}}" name="number"/><br>
+    Expiration Date:<input type="date" placeholder="{{expirationDate}}" name="expirationDate"/><br>
+    Billing Address:<input type="text" placeholder="{{billingAddress}}" name="billingAddress"/><br>
     <button type="submit">Enter Credit Card</button>
 </form>
 {{/creditCard}}
