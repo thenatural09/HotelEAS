@@ -21,45 +21,82 @@ Hello, welcome to a simple and easy to use front desk web application. Please si
 {{/user}}
 
 {{#user}}
-<form action="/logout" method="post">
-    <button type="submit">Logout</button>
-</form> <br>
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            <form action="/logout" method="post">
+                <button type="submit">Logout</button>
+            </form>
+        </td>
+        <td>
+            <form action="/create-room" method="get">
+                <button type="submit">Create Room</button>
+            </form>
+        </td>
+        <td>
+            <form action="/rates" method="get">
+                <button type="submit">Rates</button>
+            </form>
+        </td>
+        <td>
+            <form action="/go-to-guests" method="post">
+                <button type="submit">Assigned Guests</button>
+            </form>
+        </td>
+        <td>
+            <form action="/go-to-unassigned-guests" method="post">
+                <button type="submit">Unassigned Guests</button>
+            </form>
+        </td>
+        <td>
+            <form action="/go-to-rooms" method="post">
+                <button type="submit">All Rooms</button>
+            </form>
+        </td>
+    </tr>
+</table>
 
-<form action="/create-room" method="get">
-    <button type="submit">Create Room</button>
-</form> <br>
+<br>
 
-<form action="/rates" method="get">
-    <button type="submit">Rates</button>
-</form><br>
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            <form action="/" method="get">
+                <input type="hidden" value="1" name="numberOfBeds"/>
+                <button type="submit">Single Bedroom</button>
+            </form>
+        </td>
+        <td>
+            <form action="/" method="get">
+                <input type="hidden" value="2" name="numberOfBeds"/>
+                <button type="submit">Two Bedroom</button>
+            </form>
+        </td>
+        <td>
+            <form action="/" method="get">
+                <input type="hidden" value="3" name="numberOfBeds"/>
+                <button type="submit">Three Bedroom</button>
+            </form>
+        </td>
+    </tr>
+</table>
 
-<form action="/go-to-guests" method="post">
-    <button type="submit">Assigned Guests</button>
-</form> <br>
 
-<form action="/go-to-unassigned-guests" method="post">
-    <button type="submit">Unassigned Guests</button>
-</form> <br>
+<br>
 
-
-<form action="/go-to-rooms" method="post">
-    <button type="submit">All Rooms</button>
-</form>
-
-<form action="/" method="get">
-    <input type="hidden" value="1" name="numberOfBeds"/>
-    <button type="submit">Single Bedroom</button>
-</form>
-
-<form action="/" method="get">
-    <input type="hidden" value="2" name="numberOfBeds"/>
-    <button type="submit">Two Bedroom</button>
-</form>
-
-<form action="/" method="get">
-    <input type="hidden" value="3" name="numberOfBeds"/>
-    <button type="submit">Three Bedroom</button>
-</form> <br>
 
 <table>
     <tr>
