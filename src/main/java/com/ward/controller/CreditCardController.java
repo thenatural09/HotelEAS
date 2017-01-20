@@ -87,11 +87,21 @@ public class CreditCardController {
             throw new Exception("Forbidden");
         }
         CreditCard creditCard = creditCards.findOne(id);
-        creditCard.setType(type);
-        creditCard.setOwnerName(ownerName);
-        creditCard.setNumber(number);
-        creditCard.setExpirationDate(LocalDate.parse(expirationDate));
-        creditCard.setBillingAddress(billingAddress);
+        if (!type.equals("")) {
+            creditCard.setType(type);
+        }
+        if (!ownerName.equals("")) {
+            creditCard.setOwnerName(ownerName);
+        }
+        if (number != null) {
+            creditCard.setNumber(number);
+        }
+        if (!expirationDate.equals("")) {
+            creditCard.setExpirationDate(LocalDate.parse(expirationDate));
+        }
+        if (!billingAddress.equals("")) {
+            creditCard.setBillingAddress(billingAddress);
+        }
         creditCards.save(creditCard);
         return "redirect:/guests";
     }
