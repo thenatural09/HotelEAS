@@ -96,7 +96,13 @@
                 <button type="submit">Guest Info</button>
             </form>
         </td>
-        <td>{{firstName}}</td>
+        <td>
+            {{firstName}}
+            <form action="/edit-guest-info" method="get">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <button type="submit">Edit Info</button>
+            </form>
+        </td>
         <td>{{lastName}}</td>
         <td>{{room.number}}
             <form action="/assign-to-room" method="get">

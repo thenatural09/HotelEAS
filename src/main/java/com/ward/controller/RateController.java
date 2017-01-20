@@ -1,5 +1,6 @@
 package com.ward.controller;
 
+import com.ward.entities.Guest;
 import com.ward.entities.Rate;
 import com.ward.entities.Room;
 import com.ward.entities.User;
@@ -108,5 +109,50 @@ public class RateController {
         Iterable<Rate> rateList = rates.findByOrderByBaseAsc();
         model.addAttribute("rates",rateList);
         return "ascending-rates";
+    }
+
+    @RequestMapping(path = "/assign-rate", method = RequestMethod.POST)
+    public String assignRatePost(HttpSession session,Integer id,String type) throws Exception {
+        String username = (String) session.getAttribute("username");
+        User user = users.findFirstByUsername(username);
+        if (user == null) {
+            throw new Exception("Forbidden");
+        }
+        Guest guest = guests.findOne(id);
+        if(type.equalsIgnoreCase("base")) {
+            guest.setRate(rates.findFirstByRoom(guest.getRoom()).getBase());
+        }
+        else if(type.equalsIgnoreCase("friends") || type.equalsIgnoreCase("family") || type.equalsIgnoreCase("friend")) {
+            guest.setRate(rates.findFirstByRoom(guest.getRoom()).getFriendsAndFamily());
+        }
+        else if(type.equalsIgnoreCase("aaa") || type.equalsIgnoreCase("aarp")) {
+            guest.setRate(rates.findFirstByRoom(guest.getRoom()).getAarp());
+        }
+        else if(type.equalsIgnoreCase("employee")) {
+            guest.setRate(rates.findFirstByRoom(guest.getRoom()).getEmployee());
+        }
+        else if(type.equalsIgnoreCase("comp")) {
+            guest.setRate(rates.findFirstByRoom(guest.getRoom()).getComp());
+        }
+        if (guest.getRate() == null) {
+            throw new Exception("Room does not have assigned rates");
+        }
+        guest.setHasRate(true);
+        guests.save(guest);
+        if (guest.getRoom().getNumber() == 0) {
+            return "redirect:/unassigned-guests";
+        }
+        return "redirect:/guests";
+    }
+
+    @RequestMapping(path = "/assign-rate", method = RequestMethod.GET)
+    public String assignRateGet(Model model,Integer id) {
+        Guest guest = guests.findOne(id);
+        Room room = rooms.findFirstByNumber(guest.getRoom().getNumber());
+        Iterable<Rate> rateList = rates.findByRoom(room);
+        model.addAttribute("guest", guest);
+        model.addAttribute("room",room);
+        model.addAttribute("rates",rateList);
+        return "assign-rate";
     }
 }

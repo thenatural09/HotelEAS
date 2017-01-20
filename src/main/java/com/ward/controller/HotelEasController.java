@@ -67,7 +67,7 @@ public class HotelEasController {
         guestList.add(new Guest("Bob","Ward",3,"Helpful","83 Smithfield Rd","9389200202",4,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-28"),"bward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false,false,null,true));
         guestList.add(new Guest("Paul","Ward",4,"Might Be Late","34 Orange St","3839292929",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-26"),"pward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false,false,null,true));
         guestList.add(new Guest("Carl","Ward",1,"Needy","89 Smith St","238238293023",2,defaultUser,LocalDate.parse("2016-12-24"),LocalDate.parse("2016-12-27"),"cward4@tulane.edu",LocalTime.parse("15:30"),LocalTime.parse("10:00"),rooms.findFirstByNumber(0),null,false,false,false,null,true));
-        if (guests.findFirstByFirstNameAndLastName("Troy","Ward") == null) {
+        if (guests.findFirstByFirstNameAndLastName("Bob","Ward") == null) {
             guests.save(guestList);
         }
     }

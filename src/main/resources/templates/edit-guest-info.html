@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Guest Info</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            <form action="/go-to-guests" method="post">
+                <button type="submit">Assigned Guests</button>
+            </form>
+        </td>
+        <td>
+            <form action="/go-to-unassigned-guests" method="post">
+                <button type="submit">Unassigned Guests</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<br>
+{{#guest}}
+<form action="/edit-guest-info" method="post">
+    <input type="hidden" value="{{id}}" name="id"/>
+    First Name:<input type="text" placeholder="{{firstName}}" name="firstName"/><br>
+    Last Name:<input type="text" placeholder="{{lastName}}" name="lastName"/><br>
+    Number Of Guests:<input type="number" placeholder="{{numberOfGuests}}" name="numberOfGuests"/><br>
+    Home Address:<input type="text" placeholder="{{homeAddress}}" name="homeAddress"/><br>
+    Phone Number:<input type="text" placeholder="{{phoneNumber}}" name="phoneNumber"/> <br>
+    Number Of Stays:<input type="number" placeholder="{{numberOfStays}}" name="numberOfStays"/><br>
+    Email:<input type="text" placeholder="{{email}}" name="email"/><br>
+    <button type="submit">Create Guest</button>
+</form>
+{{/guest}}
+
+<table>
+    <tr>
+        <th>Room Number</th>
+        <th>Number of Beds</th>
+        <th>Room Type</th>
+    </tr>
+    {{#rooms}}
+    {{^hasGuest}}
+    <tr>
+        <td>{{number}}</td>
+        <td>{{numberOfBeds}}</td>
+        <td>{{type}}</td>
+    </tr>
+    {{/hasGuest}}
+    {{/rooms}}
+</table> <br>
+</body>
+</html>
